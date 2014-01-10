@@ -1,0 +1,1 @@
+Canvas is a MIDI-controllable light instrument for electronic musicians.
