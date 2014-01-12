@@ -20,6 +20,8 @@
 		D4DB85A9187E085A0058C38D /* CanvasTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85A8187E085A0058C38D /* CanvasTests.m */; };
 		D4DB85B4187F77C80058C38D /* ArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85B3187F77C80058C38D /* ArrayView.m */; };
 		D4DB85B5187F77C80058C38D /* ArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85B3187F77C80058C38D /* ArrayView.m */; };
+		D4DB85BD188330FD0058C38D /* ColourView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85BC188330FD0058C38D /* ColourView.m */; };
+		D4DB85BE188330FD0058C38D /* ColourView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85BC188330FD0058C38D /* ColourView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		D4DB85A8187E085A0058C38D /* CanvasTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasTests.m; sourceTree = "<group>"; };
 		D4DB85B2187F77C80058C38D /* ArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArrayView.h; path = Classes/ArrayView.h; sourceTree = "<group>"; };
 		D4DB85B3187F77C80058C38D /* ArrayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArrayView.m; path = Classes/ArrayView.m; sourceTree = "<group>"; };
+		D4DB85BB188330FD0058C38D /* ColourView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColourView.h; path = Classes/ColourView.h; sourceTree = "<group>"; };
+		D4DB85BC188330FD0058C38D /* ColourView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColourView.m; path = Classes/ColourView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,8 @@
 		D4DB85B6187F77D30058C38D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D4DB85BB188330FD0058C38D /* ColourView.h */,
+				D4DB85BC188330FD0058C38D /* ColourView.m */,
 				D4DB85B2187F77C80058C38D /* ArrayView.h */,
 				D4DB85B3187F77C80058C38D /* ArrayView.m */,
 			);
@@ -272,6 +278,7 @@
 			files = (
 				D4DB85B4187F77C80058C38D /* ArrayView.m in Sources */,
 				D4DB8592187E085A0058C38D /* CanvasAppDelegate.m in Sources */,
+				D4DB85BD188330FD0058C38D /* ColourView.m in Sources */,
 				D4DB858B187E085A0058C38D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4DB85BE188330FD0058C38D /* ColourView.m in Sources */,
 				D4DB85B5187F77C80058C38D /* ArrayView.m in Sources */,
 				D4DB85A9187E085A0058C38D /* CanvasTests.m in Sources */,
 			);

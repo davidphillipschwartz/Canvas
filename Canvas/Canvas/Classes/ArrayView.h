@@ -10,8 +10,10 @@
 
 @interface ArrayView : NSView {
     NSColor *color;
+    
 }
 
+- (id) initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
 - (void) setBackgroundColor:(NSColor *) inputColor;
 
 @end

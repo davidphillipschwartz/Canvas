@@ -10,11 +10,12 @@
 
 @implementation ArrayView
 
-- (id)initWithFrame:(NSRect)frame 
+- (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[NSColor greenColor]];
+        // default to a 2x2 grid
+        
     }
     return self;
 }
