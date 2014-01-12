@@ -16,8 +16,10 @@
 {
     timerFlag = false;
     
-    self.simulatorView = [[ArrayView alloc] initWithCellWidth:80.0f CellHeight:80.0f HorizontalCells:4 VerticalCells:4];
-    self.testView = [[ColourView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, 90.0f)];
+    simulatorView = [[ArrayView alloc] initWithCellWidth:80.0f CellHeight:80.0f HorizontalCells:4 VerticalCells:4];
+    [self.window.contentView addSubview:simulatorView];
+    testView = [[ColourView alloc] initWithFrame:NSMakeRect(0.0f, 380.0f, 90.0f, 90.0f)];
+    [self.window.contentView addSubview:testView];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
     
@@ -28,10 +30,12 @@
 
 - (void) timerEventHandler {
     if (timerFlag) {
-        [self.simulatorView setColour:[NSColor redColor] AtIndex:3];
+        [simulatorView setColour:[NSColor redColor] AtIndex:3];
+        [testView setBackgroundColour:[NSColor redColor]];
     }
     else {
-        [self.simulatorView setColour:[NSColor blueColor] AtIndex:3];
+        [simulatorView setColour:[NSColor blueColor] AtIndex:3];
+        [testView setBackgroundColour:[NSColor blueColor]];
     }
     timerFlag = !timerFlag;
     NSLog(@"timerEventHandler");

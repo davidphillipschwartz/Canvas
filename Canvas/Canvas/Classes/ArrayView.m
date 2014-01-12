@@ -14,22 +14,24 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // default to a 2x2 grid
-        
+        // default to a 1x1 grid
     }
     return self;
 }
 
 - (id)initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells
 {
-    CGRect frame = CGRectMake(0.0f, 0.0f, cellWidth*horizontalCells, cellHeight*verticalCells);
+    
+    NSRect frame = NSMakeRect(0.0f, 0.0f, cellWidth*horizontalCells, cellHeight*verticalCells);
     self = [super initWithFrame:frame];
     if (self) {
+        NSLog(@"creating ArrayView");
+        cellArray = [[NSMutableArray alloc] init];
         for (int y = 0; y < verticalCells; y++)
         {
             for (int x = 0; x < horizontalCells; x++)
             {
-                CGRect cellFrame = CGRectMake(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+                NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
                 ColourView *cell = [[ColourView alloc] initWithFrame:cellFrame];
                 [self addSubview:cell];
                 [cellArray addObject:cell];
@@ -44,7 +46,7 @@
 {
     ColourView *cell = cellArray[index];
     [cell setBackgroundColour:inputColour];
-    //[self setNeedsDisplay:YES];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -53,9 +55,10 @@
     for (int i = 0; i < [cellArray count]; i++)
     {
         NSLog(@"drawing cell");
-        CGRect fml = ((ColourView *)cellArray[i]).bounds;
+        NSRect fml = ((ColourView *)cellArray[i]).bounds;
         [cellArray[i] drawRect:fml];
     }
+    NSLog(@"ArrayView drawRect");
 }
 
 @end

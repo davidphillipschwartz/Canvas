@@ -11,11 +11,11 @@
 
 @interface CanvasAppDelegate : NSObject <NSApplicationDelegate> {
     BOOL timerFlag;
+    ColourView *testView;
+    ArrayView *simulatorView;
 }
 
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, strong) IBOutlet ArrayView *simulatorView;
-@property (nonatomic, strong) IBOutlet ColourView *testView;
 @property (nonatomic, strong) NSTimer *timer;
 
 @end

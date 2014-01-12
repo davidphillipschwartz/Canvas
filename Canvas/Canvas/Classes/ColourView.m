@@ -29,6 +29,7 @@
 	//[super drawRect:dirtyRect];
     [colour set];
     NSRectFill([self bounds]);
+    NSLog(@"ColourView drawRect");
 }
 
 @end
