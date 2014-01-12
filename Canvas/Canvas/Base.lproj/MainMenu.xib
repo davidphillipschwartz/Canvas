@@ -660,12 +660,17 @@
                         <rect key="frame" x="135" y="72" width="320" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrr-ry-WKc" customClass="ColourView">
+                        <rect key="frame" x="0.0" y="375" width="90" height="90"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
         </window>
         <customObject id="494" customClass="CanvasAppDelegate">
             <connections>
                 <outlet property="simulatorView" destination="cPl-iA-IhB" id="QDh-Jx-IRe"/>
+                <outlet property="testView" destination="vrr-ry-WKc" id="Fqi-uZ-ETA"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>

@@ -14,7 +14,8 @@
 }
 
 @property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet ArrayView *simulatorView;
+@property (nonatomic, strong) IBOutlet ArrayView *simulatorView;
+@property (nonatomic, strong) IBOutlet ColourView *testView;
 @property (nonatomic, strong) NSTimer *timer;
 
 @end

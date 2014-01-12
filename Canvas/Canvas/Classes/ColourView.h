@@ -13,6 +13,6 @@
     NSColor *colour;
 }
 
-- (void) setBackgroundColour:(NSColor *)inputColour;
+- (void)setBackgroundColour:(NSColor *)inputColour;
 
 @end

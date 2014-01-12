@@ -14,6 +14,8 @@
     NSMutableArray *cellArray;
 }
 
-- (id) initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
+- (id)initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
+
+- (void)setColour:(NSColor *)inputColour AtIndex:(int)index;
 
 @end

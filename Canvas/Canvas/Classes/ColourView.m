@@ -14,20 +14,19 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        colour = [NSColor purpleColor]; // default = swag
     }
     return self;
 }
 
-- (void) setBackgroundColour:(NSColor *)inputColour {
+- (void)setBackgroundColour:(NSColor *)inputColour {
     colour = inputColour;
     [self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	[super drawRect:dirtyRect];
-    
+	//[super drawRect:dirtyRect];
     [colour set];
     NSRectFill([self bounds]);
 }
