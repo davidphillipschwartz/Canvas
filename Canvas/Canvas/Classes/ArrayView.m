@@ -12,24 +12,23 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // default to a 1x1 grid
-        // incomplete
-    }
+    // default to 2x2 grid filling frame
+    self = [self initWithX:frame.origin.x Y:frame.origin.y CellWidth:(frame.size.width / 2) CellHeight:(frame.size.height / 2) HorizontalCells:2 VerticalCells:2];
+    
     return self;
 }
 
 - (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells
 {
-    
     NSRect frame = NSMakeRect(_x, _y, cellWidth*horizontalCells, cellHeight*verticalCells);
     self = [super initWithFrame:frame];
     if (self) {
         cellArray = [[NSMutableArray alloc] init];
-        for (int y = 0; y < verticalCells; y++)
+        arrayWidth = horizontalCells;
+        arrayHeight = verticalCells;
+        for (int y = 0; y < arrayHeight; y++)
         {
-            for (int x = 0; x < horizontalCells; x++)
+            for (int x = 0; x < arrayWidth; x++)
             {
                 NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
                 ColourView *cell = [[ColourView alloc] initWithFrame:cellFrame];
@@ -41,11 +40,19 @@
     return self;
 }
 
-- (void)setColour:(NSColor *)inputColour AtIndex:(int)index
+- (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y
 {
-    ColourView *cell = cellArray[index];
-    [cell setBackgroundColour:inputColour];
-    [self setNeedsDisplay:YES];
+    if (x >= arrayWidth || y >= arrayHeight)
+    {
+        NSLog(@"ArrayView setColour: index out of bounds");
+    }
+    else
+    {
+        int index = y * arrayWidth + x;
+        ColourView *cell = cellArray[index];
+        [cell setBackgroundColour:inputColour];
+        [self setNeedsDisplay:YES];
+    }
 }
 
 - (void)drawRect:(NSRect)dirtyRect

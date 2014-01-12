@@ -12,10 +12,12 @@
 @interface ArrayView : NSView
 {
     NSMutableArray *cellArray;
+    int arrayWidth;
+    int arrayHeight;
 }
 
 - (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
 
-- (void)setColour:(NSColor *)inputColour AtIndex:(int)index;
+- (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y;
 
 @end

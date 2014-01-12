@@ -25,11 +25,12 @@
 #pragma mark CONTROLLER METHODS
 
 - (void) timerEventHandler {
+    int x = 3, y = 3;
     if (timerFlag) {
-        [simulatorView setColour:[NSColor redColor] AtIndex:3];
+        [simulatorView setColour:[NSColor redColor] AtLocationX:x LocationY:y];
     }
     else {
-        [simulatorView setColour:[NSColor blueColor] AtIndex:3];
+        [simulatorView setColour:[NSColor blueColor] AtLocationX:x LocationY:y];
     }
     timerFlag = !timerFlag;
 }
