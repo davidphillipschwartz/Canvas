@@ -8,7 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ColourView : NSView {
+@interface ColourView : NSView
+{
     NSColor *colour;
 }
 

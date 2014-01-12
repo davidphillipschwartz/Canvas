@@ -20,17 +20,27 @@
     return self;
 }
 
-- (void) setBackgroundColor:(NSColor *)inputColor {
-    color = inputColor;
-    [self setNeedsDisplay:YES];
+- (id) initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells
+{
+    CGRect frame = CGRectMake(0.0f, 0.0f, cellWidth*horizontalCells, cellHeight*verticalCells);
+    self = [super initWithFrame:frame];
+    if (self) {
+        for (int y = 0; y < verticalCells; y++)
+        {
+            for (int x = 0; x < horizontalCells; x++)
+            {
+                CGRect cellFrame = CGRectMake(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+                [cellArray addObject:[[ColourView alloc] initWithFrame:cellFrame]];
+            }
+        }
+    }
+    return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
 	[super drawRect:dirtyRect];
-    
-    [color set];
-    NSRectFill([self bounds]);
+
 }
 
 @end

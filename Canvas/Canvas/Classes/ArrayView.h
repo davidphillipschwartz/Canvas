@@ -7,13 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ColourView.h"
 
-@interface ArrayView : NSView {
-    NSColor *color;
-    
+@interface ArrayView : NSView
+{
+    NSMutableArray *cellArray;
 }
 
 - (id) initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
-- (void) setBackgroundColor:(NSColor *) inputColor;
 
 @end
