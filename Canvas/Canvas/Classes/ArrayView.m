@@ -15,17 +15,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         // default to a 1x1 grid
+        // incomplete
     }
     return self;
 }
 
-- (id)initWithCellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells
+- (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells
 {
     
-    NSRect frame = NSMakeRect(0.0f, 0.0f, cellWidth*horizontalCells, cellHeight*verticalCells);
+    NSRect frame = NSMakeRect(_x, _y, cellWidth*horizontalCells, cellHeight*verticalCells);
     self = [super initWithFrame:frame];
     if (self) {
-        NSLog(@"creating ArrayView");
         cellArray = [[NSMutableArray alloc] init];
         for (int y = 0; y < verticalCells; y++)
         {
@@ -35,7 +35,6 @@
                 ColourView *cell = [[ColourView alloc] initWithFrame:cellFrame];
                 [self addSubview:cell];
                 [cellArray addObject:cell];
-                [cell setNeedsDisplay:YES];
             }
         }
     }
@@ -54,11 +53,9 @@
 	//[super drawRect:dirtyRect];
     for (int i = 0; i < [cellArray count]; i++)
     {
-        NSLog(@"drawing cell");
         NSRect fml = ((ColourView *)cellArray[i]).bounds;
         [cellArray[i] drawRect:fml];
     }
-    NSLog(@"ArrayView drawRect");
 }
 
 @end

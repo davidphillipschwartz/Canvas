@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "ArrayView.h"
 
-@interface CanvasAppDelegate : NSObject <NSApplicationDelegate> {
+@interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
+{
     BOOL timerFlag;
-    ColourView *testView;
     ArrayView *simulatorView;
 }
 
