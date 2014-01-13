@@ -1,5 +1,5 @@
 //
-//  ArrayView.h
+//  CanvasArrayView.h
 //  Canvas
 //
 //  Created by David Schwartz on 2014-01-09.
@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ColourView.h"
+#import "CanvasColourView.h"
 
-@interface ArrayView : NSView
+@interface CanvasArrayView : NSView
 {
     NSMutableArray *cellArray;
     int arrayWidth;

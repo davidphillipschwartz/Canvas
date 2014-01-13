@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4A5E587188370D1007A6820 /* CanvasPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A5E586188370D1007A6820 /* CanvasPattern.m */; };
+		D4A5E588188370D1007A6820 /* CanvasPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A5E586188370D1007A6820 /* CanvasPattern.m */; };
 		D4DB857F187E085A0058C38D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DB857E187E085A0058C38D /* Cocoa.framework */; };
 		D4DB8589187E085A0058C38D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4DB8587187E085A0058C38D /* InfoPlist.strings */; };
 		D4DB858B187E085A0058C38D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB858A187E085A0058C38D /* main.m */; };
@@ -18,10 +20,10 @@
 		D4DB859F187E085A0058C38D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DB857E187E085A0058C38D /* Cocoa.framework */; };
 		D4DB85A7187E085A0058C38D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4DB85A5187E085A0058C38D /* InfoPlist.strings */; };
 		D4DB85A9187E085A0058C38D /* CanvasTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85A8187E085A0058C38D /* CanvasTests.m */; };
-		D4DB85B4187F77C80058C38D /* ArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85B3187F77C80058C38D /* ArrayView.m */; };
-		D4DB85B5187F77C80058C38D /* ArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85B3187F77C80058C38D /* ArrayView.m */; };
-		D4DB85BD188330FD0058C38D /* ColourView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85BC188330FD0058C38D /* ColourView.m */; };
-		D4DB85BE188330FD0058C38D /* ColourView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85BC188330FD0058C38D /* ColourView.m */; };
+		D4DB85B4187F77C80058C38D /* CanvasArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85B3187F77C80058C38D /* CanvasArrayView.m */; };
+		D4DB85B5187F77C80058C38D /* CanvasArrayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85B3187F77C80058C38D /* CanvasArrayView.m */; };
+		D4DB85BD188330FD0058C38D /* CanvasColourView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85BC188330FD0058C38D /* CanvasColourView.m */; };
+		D4DB85BE188330FD0058C38D /* CanvasColourView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DB85BC188330FD0058C38D /* CanvasColourView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D4A5E585188370D1007A6820 /* CanvasPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasPattern.h; path = Classes/CanvasPattern.h; sourceTree = "<group>"; };
+		D4A5E586188370D1007A6820 /* CanvasPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasPattern.m; path = Classes/CanvasPattern.m; sourceTree = "<group>"; };
 		D4DB857B187E085A0058C38D /* Canvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4DB857E187E085A0058C38D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D4DB8581187E085A0058C38D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -54,10 +58,10 @@
 		D4DB85A4187E085A0058C38D /* CanvasTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CanvasTests-Info.plist"; sourceTree = "<group>"; };
 		D4DB85A6187E085A0058C38D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4DB85A8187E085A0058C38D /* CanvasTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasTests.m; sourceTree = "<group>"; };
-		D4DB85B2187F77C80058C38D /* ArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArrayView.h; path = Classes/ArrayView.h; sourceTree = "<group>"; };
-		D4DB85B3187F77C80058C38D /* ArrayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArrayView.m; path = Classes/ArrayView.m; sourceTree = "<group>"; };
-		D4DB85BB188330FD0058C38D /* ColourView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColourView.h; path = Classes/ColourView.h; sourceTree = "<group>"; };
-		D4DB85BC188330FD0058C38D /* ColourView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColourView.m; path = Classes/ColourView.m; sourceTree = "<group>"; };
+		D4DB85B2187F77C80058C38D /* CanvasArrayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasArrayView.h; path = Classes/CanvasArrayView.h; sourceTree = "<group>"; };
+		D4DB85B3187F77C80058C38D /* CanvasArrayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasArrayView.m; path = Classes/CanvasArrayView.m; sourceTree = "<group>"; };
+		D4DB85BB188330FD0058C38D /* CanvasColourView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasColourView.h; path = Classes/CanvasColourView.h; sourceTree = "<group>"; };
+		D4DB85BC188330FD0058C38D /* CanvasColourView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasColourView.m; path = Classes/CanvasColourView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,10 +170,12 @@
 		D4DB85B6187F77D30058C38D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D4DB85BB188330FD0058C38D /* ColourView.h */,
-				D4DB85BC188330FD0058C38D /* ColourView.m */,
-				D4DB85B2187F77C80058C38D /* ArrayView.h */,
-				D4DB85B3187F77C80058C38D /* ArrayView.m */,
+				D4DB85B2187F77C80058C38D /* CanvasArrayView.h */,
+				D4DB85B3187F77C80058C38D /* CanvasArrayView.m */,
+				D4DB85BB188330FD0058C38D /* CanvasColourView.h */,
+				D4DB85BC188330FD0058C38D /* CanvasColourView.m */,
+				D4A5E585188370D1007A6820 /* CanvasPattern.h */,
+				D4A5E586188370D1007A6820 /* CanvasPattern.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -276,9 +282,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4DB85B4187F77C80058C38D /* ArrayView.m in Sources */,
+				D4DB85B4187F77C80058C38D /* CanvasArrayView.m in Sources */,
 				D4DB8592187E085A0058C38D /* CanvasAppDelegate.m in Sources */,
-				D4DB85BD188330FD0058C38D /* ColourView.m in Sources */,
+				D4A5E587188370D1007A6820 /* CanvasPattern.m in Sources */,
+				D4DB85BD188330FD0058C38D /* CanvasColourView.m in Sources */,
 				D4DB858B187E085A0058C38D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,8 +294,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4DB85BE188330FD0058C38D /* ColourView.m in Sources */,
-				D4DB85B5187F77C80058C38D /* ArrayView.m in Sources */,
+				D4A5E588188370D1007A6820 /* CanvasPattern.m in Sources */,
+				D4DB85BE188330FD0058C38D /* CanvasColourView.m in Sources */,
+				D4DB85B5187F77C80058C38D /* CanvasArrayView.m in Sources */,
 				D4DB85A9187E085A0058C38D /* CanvasTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +500,7 @@
 				D4DB85AE187E085A0058C38D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4DB85AF187E085A0058C38D /* Build configuration list for PBXNativeTarget "CanvasTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +509,7 @@
 				D4DB85B1187E085A0058C38D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

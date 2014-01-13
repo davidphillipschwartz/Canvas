@@ -7,12 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ArrayView.h"
+#import "CanvasArrayView.h"
 
 @interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
 {
     BOOL timerFlag;
-    ArrayView *simulatorView;
+    CanvasArrayView *simulatorView;
 }
 
 @property (assign) IBOutlet NSWindow *window;

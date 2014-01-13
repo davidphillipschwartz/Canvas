@@ -1,14 +1,14 @@
 //
-//  ArrayView.m
+//  CanvasArrayView.m
 //  Canvas
 //
 //  Created by David Schwartz on 2014-01-09.
 //  Copyright (c) 2014 Hybridity. All rights reserved.
 //
 
-#import "ArrayView.h"
+#import "CanvasArrayView.h"
 
-@implementation ArrayView
+@implementation CanvasArrayView
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -31,7 +31,7 @@
             for (int x = 0; x < arrayWidth; x++)
             {
                 NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-                ColourView *cell = [[ColourView alloc] initWithFrame:cellFrame];
+                CanvasColourView *cell = [[CanvasColourView alloc] initWithFrame:cellFrame];
                 [self addSubview:cell];
                 [cellArray addObject:cell];
             }
@@ -49,7 +49,7 @@
     else
     {
         int index = y * arrayWidth + x;
-        ColourView *cell = cellArray[index];
+        CanvasColourView *cell = cellArray[index];
         [cell setBackgroundColour:inputColour];
         [self setNeedsDisplay:YES];
     }
@@ -60,7 +60,7 @@
 	//[super drawRect:dirtyRect];
     for (int i = 0; i < [cellArray count]; i++)
     {
-        NSRect fml = ((ColourView *)cellArray[i]).bounds;
+        NSRect fml = ((CanvasColourView *)cellArray[i]).bounds;
         [cellArray[i] drawRect:fml];
     }
 }

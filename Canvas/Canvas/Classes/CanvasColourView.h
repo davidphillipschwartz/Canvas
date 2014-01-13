@@ -1,5 +1,5 @@
 //
-//  ColourView.h
+//  CanvasColourView.h
 //  Canvas
 //
 //  Created by David Schwartz on 2014-01-12.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ColourView : NSView
+@interface CanvasColourView : NSView
 {
     NSColor *colour;
 }
