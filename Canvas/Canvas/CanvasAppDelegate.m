@@ -16,7 +16,7 @@
 {
     timerFlag = false;
     
-    simulatorView = [[ArrayView alloc] initWithX:125.0f Y:75.0f CellWidth:80.0f CellHeight:80.0f HorizontalCells:4 VerticalCells:4];
+    simulatorView = [[ArrayView alloc] initWithX:0.0f Y:0.0f CellWidth:50.0f CellHeight:50.0f HorizontalCells:9 VerticalCells:9];
     [self.window.contentView addSubview:simulatorView];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
