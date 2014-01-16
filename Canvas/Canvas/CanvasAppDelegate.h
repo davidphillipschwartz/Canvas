@@ -11,7 +11,7 @@
 
 @interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
 {
-    BOOL timerFlag;
+    int frameCounter;
     CanvasArrayView *simulatorView;
 }
 

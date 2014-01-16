@@ -12,12 +12,14 @@
 
 - (id)init
 {
-    // incomplete
+    
     return nil;
 }
 
 - (id)initWithWidth:(int)_width Height:(int)_height Length:(int)_length
 {
+    // incomplete
+    
     self = [super init];
     if (self) {
         width = _width;
@@ -26,6 +28,11 @@
         pixelArray = malloc(width*height*length*sizeof(CanvasPixel));
     }
     return self;
+}
+
+-(void)setColour:(NSColor *)colour AtLocationX:(int)x LocationY:(int)y Time:(int)t
+{
+    
 }
 
 - (void)dealloc
