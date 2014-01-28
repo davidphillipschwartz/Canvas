@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CanvasArrayView.h"
+#import "CanvasPattern.h"
 
 @interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
 {
-    int frameCounter;
     CanvasArrayView *simulatorView;
+    CanvasPattern *currentPattern;
+    
+    int frameCounter;
 }
 
 @property (assign) IBOutlet NSWindow *window;

@@ -12,27 +12,54 @@
 
 - (id)init
 {
-    
-    return nil;
+    self = [self initWithWidth:0 Height:0 Length:0];
+    return self;
 }
 
 - (id)initWithWidth:(int)_width Height:(int)_height Length:(int)_length
 {
-    // incomplete
-    
     self = [super init];
     if (self) {
         width = _width;
         height = _height;
         length = _length;
-        pixelArray = malloc(width*height*length*sizeof(CanvasPixel));
+        pixelArray = calloc(width*height*length, sizeof(CanvasPixel)); // set all black
     }
     return self;
 }
 
 -(void)setColour:(NSColor *)colour AtLocationX:(int)x LocationY:(int)y Time:(int)t
 {
-    
+    if ((x >= width) || (y >= height) || (t >= length))
+    {
+        NSLog(@"CanvasPattern setColour: location out of bounds");
+    }
+    else
+    {
+        // get components of input colour
+        double red, green, blue;
+        [colour getRed:&red green:&green blue:&blue alpha:NULL];
+        
+        // store new pixel
+        CanvasPixel newPixel = { .r = red, .g = green, .b = blue };
+        int index = width * height * t + width * y + x;
+        pixelArray[index] = newPixel;
+    }
+}
+
+- (NSColor*)getColourAtLocationX:(int)x LocationY:(int)y Time:(int)t
+{
+    if ((x >= width) || (y >= height) || (t >= length))
+    {
+        NSLog(@"CanvasPattern getColour: location out of bounds");
+        return nil;
+    }
+    else
+    {
+        int index = width * height * t + width * y + x;
+        CanvasPixel pixel = pixelArray[index];
+        return [NSColor colorWithCalibratedRed:pixel.r green:pixel.g blue:pixel.b alpha:1.0f];
+    }
 }
 
 - (void)dealloc
