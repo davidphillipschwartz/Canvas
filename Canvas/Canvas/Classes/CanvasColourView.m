@@ -26,15 +26,17 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	//[super drawRect:dirtyRect];
-    
     [[NSColor grayColor] set];
     NSRectFill([self bounds]);
     NSRect inset = NSInsetRect([self bounds], 1.0f, 1.0f);
     NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:inset];
     [colour set];
     [circlePath fill];
-    
+}
+
+- (void)drawRect
+{
+    [self drawRect:[self bounds]];
 }
 
 @end

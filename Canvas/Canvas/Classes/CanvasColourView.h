@@ -14,5 +14,6 @@
 }
 
 - (void)setBackgroundColour:(NSColor *)inputColour;
+- (void)drawRect;
 
 @end

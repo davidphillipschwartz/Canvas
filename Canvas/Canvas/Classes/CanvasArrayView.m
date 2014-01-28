@@ -57,11 +57,9 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	//[super drawRect:dirtyRect];
     for (int i = 0; i < [cellArray count]; i++)
     {
-        NSRect fml = ((CanvasColourView *)cellArray[i]).bounds;
-        [cellArray[i] drawRect:fml];
+        [cellArray[i] drawRect];
     }
 }
 
