@@ -17,6 +17,8 @@
     simulatorView = [[CanvasArrayView alloc] initWithX:0.0f Y:0.0f CellWidth:50.0f CellHeight:50.0f HorizontalCells:9 VerticalCells:9];
     [self.window.contentView addSubview:simulatorView];
     
+    currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:2];
+    
     [self initializePattern];
     
     frameCounter = 0;
@@ -43,8 +45,6 @@
 
 - (void) initializePattern
 {
-    currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:2];
-    
     // time = 0
     for(int x = 0; x < 9; x++)
     {
@@ -91,4 +91,17 @@
         }
     }
 }
+
+- (void) createPatternFile
+{
+    NSString *documentsDirectory;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([paths count] > 0) {
+        documentsDirectory = paths[0];
+    }
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"testFile.canvas"];
+    bool success = [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
+    NSAssert(success, @"ERROR CREATING PATTERN FILE");
+}
+
 @end

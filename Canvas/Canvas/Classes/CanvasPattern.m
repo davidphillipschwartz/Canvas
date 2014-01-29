@@ -62,6 +62,12 @@
     }
 }
 
+-(NSData*)convertPatternToData
+{
+    NSData *patternData = [[NSData alloc] initWithBytes:pixelArray length:length * width * height * sizeof(CanvasPixel)];
+    return patternData;
+}
+
 - (void)dealloc
 {
     free(pixelArray);
