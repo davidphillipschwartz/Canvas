@@ -21,6 +21,8 @@
     
     [self initializePattern];
     
+    [self createPatternFileWithData:[currentPattern convertPatternToData]];
+    
     frameCounter = 0;
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
@@ -92,15 +94,15 @@
     }
 }
 
-- (void) createPatternFile
+- (void) createPatternFileWithData:(NSData*)data
 {
     NSString *documentsDirectory;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if ([paths count] > 0) {
         documentsDirectory = paths[0];
     }
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"testFile.canvas"];
-    bool success = [[NSFileManager defaultManager] createFileAtPath:filePath contents:nil attributes:nil];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
+    bool success = [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
