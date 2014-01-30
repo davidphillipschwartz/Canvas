@@ -53,11 +53,6 @@
                 }
             }
         }
-        
-        for(int i = 0; i < length * width * height; i++)
-        {
-            NSLog(@"%f",buffer[i]);
-        }
         free(buffer);
     }
     return self;
