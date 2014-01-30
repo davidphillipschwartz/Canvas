@@ -23,6 +23,14 @@
     
     [self createPatternFileWithData:[currentPattern convertPatternToData]];
     
+    NSString *documentsDirectory;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([paths count] > 0) {
+        documentsDirectory = paths[0];
+    }
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
+    currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:filePath]];
+    
     frameCounter = 0;
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];

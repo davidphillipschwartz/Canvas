@@ -28,6 +28,36 @@
     return self;
 }
 
+- (id)initWithData:(NSData *)_data
+{
+    self = [self initWithWidth:9 Height:9 Length:2]; // TEMPORARY
+    if (self != nil)
+    {
+        double *buffer = malloc(length * width * height * sizeof(double));
+        NSAssert(_data != nil, @"DATA IS NIL AGHHHH");
+        [_data getBytes:buffer length:length * width * height * sizeof(double)];
+        
+        for (int t = 0; t < length; t++)
+        {
+            for(int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int currentRedIndex = length * width * t + width * y + x;
+                    int currentGreenIndex = currentRedIndex + 2;
+                    int currentBlueIndex = currentGreenIndex + 2;
+                    
+                    NSColor *currentColour = [NSColor colorWithCalibratedRed:buffer[currentRedIndex] green:buffer[currentGreenIndex] blue:buffer[currentBlueIndex] alpha:1.0f];
+                    
+                    [self setColour:currentColour AtLocationX:x LocationY:y Time:t];
+                }
+            }
+        }
+        free(buffer);
+    }
+    return self;
+}
+
 -(void)setColour:(NSColor *)colour AtLocationX:(int)x LocationY:(int)y Time:(int)t
 {
     if ((x >= width) || (y >= height) || (t >= length))
