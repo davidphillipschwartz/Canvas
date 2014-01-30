@@ -33,9 +33,9 @@
     self = [self initWithWidth:9 Height:9 Length:2]; // TEMPORARY
     if (self != nil)
     {
-        double *buffer = malloc(length * width * height * sizeof(double));
+        double *buffer = malloc(length * width * height * sizeof(CanvasPixel));
         NSAssert(_data != nil, @"DATA IS NIL AGHHHH");
-        [_data getBytes:buffer length:length * width * height * sizeof(double)];
+        [_data getBytes:buffer length:length * width * height * sizeof(CanvasPixel)];
         
         for (int t = 0; t < length; t++)
         {
@@ -43,7 +43,7 @@
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int currentRedIndex = length * width * t + width * y + x;
+                    int currentRedIndex = 3 * (width * height * t + width * y + x);
                     int currentGreenIndex = currentRedIndex + 1;
                     int currentBlueIndex = currentGreenIndex + 1;
                     
