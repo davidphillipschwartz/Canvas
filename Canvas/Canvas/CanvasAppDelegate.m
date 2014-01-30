@@ -29,6 +29,7 @@
         documentsDirectory = paths[0];
     }
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
+    
     currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:filePath]];
     
     frameCounter = 0;
@@ -110,6 +111,7 @@
     }
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
     bool success = [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
+    #pragma unused(success)
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
