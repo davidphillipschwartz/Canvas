@@ -44,14 +44,19 @@
                 for (int x = 0; x < width; x++)
                 {
                     int currentRedIndex = length * width * t + width * y + x;
-                    int currentGreenIndex = currentRedIndex + 2;
-                    int currentBlueIndex = currentGreenIndex + 2;
+                    int currentGreenIndex = currentRedIndex + 1;
+                    int currentBlueIndex = currentGreenIndex + 1;
                     
                     NSColor *currentColour = [NSColor colorWithCalibratedRed:buffer[currentRedIndex] green:buffer[currentGreenIndex] blue:buffer[currentBlueIndex] alpha:1.0f];
                     
                     [self setColour:currentColour AtLocationX:x LocationY:y Time:t];
                 }
             }
+        }
+        
+        for(int i = 0; i < length * width * height; i++)
+        {
+            NSLog(@"%f",buffer[i]);
         }
         free(buffer);
     }

@@ -48,7 +48,6 @@
             [simulatorView setColour:pixelColour AtLocationX:x LocationY:y];
         }
     }
-    
     frameCounter++;
     frameCounter = frameCounter % 2;
 }
