@@ -22,13 +22,14 @@
 {
     NSRect frame = NSMakeRect(_x, _y, cellWidth*horizontalCells, cellHeight*verticalCells);
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         cellArray = [[NSMutableArray alloc] init];
-        arrayWidth = horizontalCells;
-        arrayHeight = verticalCells;
-        for (int y = 0; y < arrayHeight; y++)
+        numberOfColumns = horizontalCells;
+        numberOfRows = verticalCells;
+        for (int y = 0; y < numberOfRows; y++)
         {
-            for (int x = 0; x < arrayWidth; x++)
+            for (int x = 0; x < numberOfColumns; x++)
             {
                 NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
                 CanvasColourView *cell = [[CanvasColourView alloc] initWithFrame:cellFrame];
@@ -42,13 +43,13 @@
 
 - (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y
 {
-    if (x >= arrayWidth || y >= arrayHeight)
+    if (x >= numberOfColumns || y >= numberOfRows)
     {
         NSLog(@"ArrayView setColour: index out of bounds");
     }
     else
     {
-        int index = y * arrayWidth + x;
+        int index = y * numberOfColumns + x;
         CanvasColourView *cell = cellArray[index];
         [cell setBackgroundColour:inputColour];
         [self setNeedsDisplay:YES];

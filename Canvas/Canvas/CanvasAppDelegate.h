@@ -15,7 +15,7 @@
     CanvasArrayView *simulatorView;
     CanvasPattern *currentPattern;
     
-    int frameCounter;
+    int timestepCounter;
 }
 
 @property (assign) IBOutlet NSWindow *window;

@@ -17,7 +17,7 @@
     simulatorView = [[CanvasArrayView alloc] initWithX:0.0f Y:0.0f CellWidth:50.0f CellHeight:50.0f HorizontalCells:9 VerticalCells:9];
     [self.window.contentView addSubview:simulatorView];
     
-    currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:2];
+    currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
     
     [self initializePattern];
     
@@ -32,9 +32,9 @@
     
     currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:filePath]];
     
-    frameCounter = 0;
+    timestepCounter = 0;
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
 }
 
 #pragma mark CONTROLLER METHODS
@@ -45,58 +45,45 @@
     {
         for (int y = 0; y < 9; y++)
         {
-            NSColor *pixelColour = [currentPattern getColourAtLocationX:x LocationY:y Time:frameCounter];
+            NSColor *pixelColour = [currentPattern getColourAtLocationX:x LocationY:y Time:timestepCounter];
             [simulatorView setColour:pixelColour AtLocationX:x LocationY:y];
         }
     }
-    frameCounter++;
-    frameCounter = frameCounter % 2;
+    timestepCounter++;
+    timestepCounter = timestepCounter % 5;
 }
 
 - (void) initializePattern
 {
-    // time = 0
-    for(int x = 0; x < 9; x++)
-    {
-        for (int y = 0; y < 9; y++)
-        {
-            if (x == 0 || x == 8 || y == 0 || y == 8) {
-                [currentPattern setColour:[NSColor redColor] AtLocationX:x LocationY:y Time:0];
-            }
-            else if (x == 1 || x == 7 || y == 1 || y ==7) {
-                [currentPattern setColour:[NSColor orangeColor] AtLocationX:x LocationY:y Time:0];
-            }
-            else if (x == 2 || x == 6 || y == 2 || y == 6) {
-                [currentPattern setColour:[NSColor yellowColor] AtLocationX:x LocationY:y Time:0];
-            }
-            else if (x == 3 || x == 5 || y == 3 || y ==5) {
-                [currentPattern setColour:[NSColor purpleColor] AtLocationX:x LocationY:y Time:0];
-            }
-            else {
-                [currentPattern setColour:[NSColor blueColor] AtLocationX:x LocationY:y Time:0];
-            }
-        }
-    }
+    NSColor* colourArray[5];
+    colourArray[0] = [NSColor purpleColor];
+    colourArray[1] = [NSColor blueColor];
+    colourArray[2] = [NSColor purpleColor];
+    colourArray[3] = [NSColor blueColor];
+    colourArray[4] = [NSColor redColor];
     
-    // time = 1
-    for(int x = 0; x < 9; x++)
+    // time = 0
+    for (int t = 0; t < 5; t++)
     {
-        for (int y = 0; y < 9; y++)
+        for(int x = 0; x < 9; x++)
         {
-            if (x == 0 || x == 8 || y == 0 || y == 8) {
-                [currentPattern setColour:[NSColor blueColor] AtLocationX:x LocationY:y Time:1];
-            }
-            else if (x == 1 || x == 7 || y == 1 || y ==7) {
-                [currentPattern setColour:[NSColor greenColor] AtLocationX:x LocationY:y Time:1];
-            }
-            else if (x == 2 || x == 6 || y == 2 || y == 6) {
-                [currentPattern setColour:[NSColor purpleColor] AtLocationX:x LocationY:y Time:1];
-            }
-            else if (x == 3 || x == 5 || y == 3 || y ==5) {
-                [currentPattern setColour:[NSColor orangeColor] AtLocationX:x LocationY:y Time:1];
-            }
-            else {
-                [currentPattern setColour:[NSColor redColor] AtLocationX:x LocationY:y Time:1];
+            for (int y = 0; y < 9; y++)
+            {
+                if (x == 0 || x == 8 || y == 0 || y == 8) {
+                    [currentPattern setColour:colourArray[t] AtLocationX:x LocationY:y Time:t];
+                }
+                else if (x == 1 || x == 7 || y == 1 || y ==7) {
+                    [currentPattern setColour:colourArray[(t+1)%5] AtLocationX:x LocationY:y Time:t];
+                }
+                else if (x == 2 || x == 6 || y == 2 || y == 6) {
+                    [currentPattern setColour:colourArray[(t+2)%5] AtLocationX:x LocationY:y Time:t];
+                }
+                else if (x == 3 || x == 5 || y == 3 || y ==5) {
+                    [currentPattern setColour:colourArray[(t+3)%5] AtLocationX:x LocationY:y Time:t];
+                }
+                else {
+                    [currentPattern setColour:colourArray[(t+4)%5] AtLocationX:x LocationY:y Time:t];
+                }
             }
         }
     }

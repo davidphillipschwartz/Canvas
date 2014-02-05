@@ -12,8 +12,8 @@
 @interface CanvasArrayView : NSView
 {
     NSMutableArray *cellArray;
-    int arrayWidth;
-    int arrayHeight;
+    int numberOfColumns;
+    int numberOfRows;
 }
 
 - (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
