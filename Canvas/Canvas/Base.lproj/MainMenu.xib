@@ -656,6 +656,12 @@
             <view key="contentView" id="372" userLabel="Main View">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HAr-Oq-fLF" customClass="CanvasArrayView">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
+                </subviews>
             </view>
         </window>
         <customObject id="494" customClass="CanvasAppDelegate">

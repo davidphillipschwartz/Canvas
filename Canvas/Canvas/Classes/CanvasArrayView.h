@@ -12,12 +12,12 @@
 @interface CanvasArrayView : NSView
 {
     NSMutableArray *cellArray;
-    int numberOfColumns;
-    int numberOfRows;
 }
 
-- (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
+@property(nonatomic, readwrite) NSInteger numberOfColumns;
+@property(nonatomic, readwrite) NSInteger numberOfRows;
 
+- (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells;
 - (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y;
 
 @end
