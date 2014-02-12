@@ -733,15 +733,19 @@
                         </connections>
                     </button>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hWZ-jN-8Fg">
-                        <rect key="frame" x="18" y="11" width="419" height="26"/>
+                        <rect key="frame" x="16" y="9" width="423" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="10" sliderType="linear" id="e41-9T-Eq8"/>
+                        <sliderCell key="cell" state="on" alignment="left" maxValue="4" doubleValue="2" tickMarkPosition="above" numberOfTickMarks="5" allowsTickMarkValuesOnly="YES" sliderType="linear" id="e41-9T-Eq8"/>
+                        <connections>
+                            <action selector="frameSliderAction:" target="494" id="JPs-51-XEY"/>
+                        </connections>
                     </slider>
                 </subviews>
             </view>
         </window>
         <customObject id="494" customClass="CanvasAppDelegate">
             <connections>
+                <outlet property="frameSlider" destination="hWZ-jN-8Fg" id="JhH-uj-5NP"/>
                 <outlet property="playButton" destination="WAE-Xd-yYQ" id="o8W-wn-tBm"/>
                 <outlet property="simulatorView" destination="HAr-Oq-fLF" id="SxP-Rz-XuL"/>
                 <outlet property="window" destination="371" id="532"/>

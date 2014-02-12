@@ -41,9 +41,10 @@
 
 - (void) timerEventHandler
 {
-    [self.simulatorView drawFrame];
     self.simulatorView.currentTime ++;
     self.simulatorView.currentTime %= self.simulatorView.currentPattern.length;
+    [self.simulatorView drawFrame];
+    [self.frameSlider setIntegerValue:self.simulatorView.currentTime];
 }
 
 - (void) createPatternFileWithData:(NSData*)data
@@ -69,6 +70,7 @@
     [self.timer invalidate];
     self.timer = nil;
     self.simulatorView.currentTime = 0;
+    [self.frameSlider setIntegerValue:0];
     [self.simulatorView drawFrame];
     [self.playButton setState:NSOffState];
 }
@@ -76,6 +78,18 @@
 - (IBAction)playButtonAction:(id)sender
 {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
+}
+
+- (IBAction)frameSliderAction:(NSSlider*)sender
+{
+    if (self.timer != nil)
+    {
+        [self.timer invalidate];
+        self.timer = nil;
+        [self.playButton setState:NSOffState];
+    }
+    self.simulatorView.currentTime = self.frameSlider.integerValue;
+    [self.simulatorView drawFrame];
 }
 
 - (IBAction)openPatternAction:(id)sender
@@ -104,6 +118,8 @@
             {
                 self.simulatorView.currentPattern = newPattern;
                 [self.simulatorView setHorizontalCells:newPattern.width VerticalCells:newPattern.height];
+                [self.frameSlider setNumberOfTickMarks:newPattern.length];
+                [self.frameSlider setMaxValue:newPattern.length - 1];
             }
         }
     }];

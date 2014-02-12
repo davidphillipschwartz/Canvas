@@ -17,10 +17,12 @@
 @property (nonatomic, weak) NSTimer *timer;
 
 @property (weak) IBOutlet NSButton *playButton;
+@property (weak) IBOutlet NSSlider *frameSlider;
 
 - (IBAction)tempoFieldAction:(id)sender;
 - (IBAction)pauseButtonAction:(id)sender;
 - (IBAction)playButtonAction:(id)sender;
+- (IBAction)frameSliderAction:(id)sender;
 - (IBAction)openPatternAction:(id)sender;
 - (IBAction)savePatternAction:(id)sender;
 
