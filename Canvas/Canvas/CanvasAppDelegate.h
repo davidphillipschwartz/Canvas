@@ -18,6 +18,11 @@
 
 @property (weak) IBOutlet CanvasArrayView *simulatorView;
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, weak) NSTimer *timer;
+
+@property (weak) IBOutlet NSButton *playButton;
+
+- (IBAction)pauseButton:(id)sender;
+- (IBAction)playButton:(id)sender;
 
 @end

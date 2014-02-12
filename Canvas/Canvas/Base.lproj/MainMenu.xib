@@ -650,22 +650,45 @@
         <window title="Canvas" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="800" height="450"/>
+            <rect key="contentRect" x="335" y="390" width="650" height="450"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <value key="minSize" type="size" width="800" height="450"/>
+            <value key="maxSize" type="size" width="650" height="450"/>
             <view key="contentView" id="372" userLabel="MainView">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
+                <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HAr-Oq-fLF" customClass="CanvasArrayView">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVh-3u-e81">
+                        <rect key="frame" x="490" y="200" width="50" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="||" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="EQh-kv-LAs">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="21" name="LucidaGrande"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="pauseButton:" target="494" id="sjY-NI-IHe"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-Xd-yYQ">
+                        <rect key="frame" x="566" y="200" width="50" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title=">" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gkL-xo-DHo">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                            <font key="font" size="25" name="LucidaGrande"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="playButton:" target="494" id="ARo-iZ-yCc"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
         </window>
         <customObject id="494" customClass="CanvasAppDelegate">
             <connections>
+                <outlet property="playButton" destination="WAE-Xd-yYQ" id="o8W-wn-tBm"/>
                 <outlet property="simulatorView" destination="HAr-Oq-fLF" id="SxP-Rz-XuL"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>

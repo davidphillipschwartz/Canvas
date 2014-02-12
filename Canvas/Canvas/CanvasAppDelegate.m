@@ -34,7 +34,7 @@
     
     timestepCounter = 0;
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
+    self.timer = nil;
 }
 
 #pragma mark CONTROLLER METHODS
@@ -102,4 +102,15 @@
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
+- (IBAction)pauseButton:(id)sender {
+    [self.timer invalidate];
+    self.timer = nil;
+    timestepCounter = 0;
+    [self.playButton setState:NSOffState];
+}
+
+- (IBAction)playButton:(id)sender {
+    timestepCounter = 0;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
+}
 @end
