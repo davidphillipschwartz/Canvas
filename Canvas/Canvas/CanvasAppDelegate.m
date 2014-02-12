@@ -14,26 +14,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSLog(@"didFinishLaunching");
     [self.simulatorView setHorizontalCells:5 VerticalCells:5];
-    
-    /*
-    currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
-    [currentPattern initializeWithDefaultPattern];
-    [self createPatternFileWithData:[currentPattern convertPatternToData]];
-    
-    NSString *documentsDirectory;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    if ([paths count] > 0) {
-        documentsDirectory = paths[0];
-    }
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
-
-    currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:filePath]];
-    */
-    
-    self.simulatorView.currentPattern = nil;
-    
+    self.simulatorView.currentPattern = [[CanvasPattern alloc] initWithWidth:5 Height:5 Length:5];
+    // note: frameSlider initialized in nib
     self.timer = nil;
 }
 
@@ -45,19 +28,6 @@
     self.simulatorView.currentTime %= self.simulatorView.currentPattern.length;
     [self.simulatorView drawFrame];
     [self.frameSlider setIntegerValue:self.simulatorView.currentTime];
-}
-
-- (void) createPatternFileWithData:(NSData*)data
-{
-    NSString *documentsDirectory;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    if ([paths count] > 0) {
-        documentsDirectory = paths[0];
-    }
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
-    bool success = [[NSFileManager defaultManager] createFileAtPath:filePath contents:data attributes:nil];
-    #pragma unused(success)
-    NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
 - (IBAction)tempoFieldAction:(id)sender
@@ -130,10 +100,17 @@
 - (IBAction)savePatternAction:(id)sender
 {
     NSSavePanel *savePanel = [NSSavePanel savePanel];
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"canvas"]];
+    [savePanel setNameFieldStringValue:@"pattern"];
     
     [savePanel beginWithCompletionHandler:^(NSInteger result)
     {
-        
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            NSURL* url = [savePanel URL];
+            NSString* path = [url path];
+            [self.simulatorView.currentPattern savePatternToFileAtPath:path];
+        }
     }];
 }
 

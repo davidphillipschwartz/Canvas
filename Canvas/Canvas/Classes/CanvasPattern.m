@@ -66,7 +66,7 @@
 
 - (void) initializeWithDefaultPattern
 {
-    BOOL assertionCondition = (_width == 9) && (_height == 9) && (_length == 5);
+    BOOL __unused assertionCondition = (_width == 9) && (_height == 9) && (_length == 5);
     NSAssert(assertionCondition, @"ERROR: default pattern dimensions are 9x9x5");
     
     NSColor* colourArray[5];
@@ -114,6 +114,12 @@
                                                  length:3 * sizeof(NSInteger) + _width * _height * _length * sizeof(CanvasPixel)];
     free(buffer);
     return patternData;
+}
+
+- (BOOL)savePatternToFileAtPath:(NSString *)arg_path
+{
+    NSData* patternData = [self convertPatternToData];
+    return [[NSFileManager defaultManager] createFileAtPath:arg_path contents:patternData attributes:nil];
 }
 
 -(void)setColour:(NSColor *)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t
