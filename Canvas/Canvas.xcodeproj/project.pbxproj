@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40A83C418AB166300BB4CA8 /* NSTextFieldCell+Centered.m in Sources */ = {isa = PBXBuildFile; fileRef = D40A83C318AB166300BB4CA8 /* NSTextFieldCell+Centered.m */; };
+		D40A83C518AB166300BB4CA8 /* NSTextFieldCell+Centered.m in Sources */ = {isa = PBXBuildFile; fileRef = D40A83C318AB166300BB4CA8 /* NSTextFieldCell+Centered.m */; };
 		D4A5E587188370D1007A6820 /* CanvasPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A5E586188370D1007A6820 /* CanvasPattern.m */; };
 		D4A5E588188370D1007A6820 /* CanvasPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A5E586188370D1007A6820 /* CanvasPattern.m */; };
 		D4DB857F187E085A0058C38D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DB857E187E085A0058C38D /* Cocoa.framework */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D40A83C218AB166300BB4CA8 /* NSTextFieldCell+Centered.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextFieldCell+Centered.h"; path = "Classes/NSTextFieldCell+Centered.h"; sourceTree = "<group>"; };
+		D40A83C318AB166300BB4CA8 /* NSTextFieldCell+Centered.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextFieldCell+Centered.m"; path = "Classes/NSTextFieldCell+Centered.m"; sourceTree = "<group>"; };
 		D4A5E585188370D1007A6820 /* CanvasPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CanvasPattern.h; path = Classes/CanvasPattern.h; sourceTree = "<group>"; };
 		D4A5E586188370D1007A6820 /* CanvasPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CanvasPattern.m; path = Classes/CanvasPattern.m; sourceTree = "<group>"; };
 		D4DB857B187E085A0058C38D /* Canvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +180,8 @@
 				D4DB85BC188330FD0058C38D /* CanvasColourView.m */,
 				D4A5E585188370D1007A6820 /* CanvasPattern.h */,
 				D4A5E586188370D1007A6820 /* CanvasPattern.m */,
+				D40A83C218AB166300BB4CA8 /* NSTextFieldCell+Centered.h */,
+				D40A83C318AB166300BB4CA8 /* NSTextFieldCell+Centered.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -284,6 +290,7 @@
 			files = (
 				D4DB85B4187F77C80058C38D /* CanvasArrayView.m in Sources */,
 				D4DB8592187E085A0058C38D /* CanvasAppDelegate.m in Sources */,
+				D40A83C418AB166300BB4CA8 /* NSTextFieldCell+Centered.m in Sources */,
 				D4A5E587188370D1007A6820 /* CanvasPattern.m in Sources */,
 				D4DB85BD188330FD0058C38D /* CanvasColourView.m in Sources */,
 				D4DB858B187E085A0058C38D /* main.m in Sources */,
@@ -297,6 +304,7 @@
 				D4A5E588188370D1007A6820 /* CanvasPattern.m in Sources */,
 				D4DB85BE188330FD0058C38D /* CanvasColourView.m in Sources */,
 				D4DB85B5187F77C80058C38D /* CanvasArrayView.m in Sources */,
+				D40A83C518AB166300BB4CA8 /* NSTextFieldCell+Centered.m in Sources */,
 				D4DB85A9187E085A0058C38D /* CanvasTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
