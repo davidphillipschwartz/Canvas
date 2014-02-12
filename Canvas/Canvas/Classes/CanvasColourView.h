@@ -8,7 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CanvasColourView : NSView
+@protocol CanvasColourViewDelegate <NSObject>
+
+@end
+
+@interface CanvasColourView : NSView <NSDraggingDestination>
 {
     NSColor *colour;
 }

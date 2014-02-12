@@ -14,9 +14,39 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        colour = [NSColor whiteColor]; // default != swag :c
+        colour = [NSColor whiteColor];
+        [self registerForDraggedTypes:[NSArray arrayWithObject:NSColorPboardType]];
     }
     return self;
+}
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
+{
+    NSPasteboard* pboard = [sender draggingPasteboard];
+    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
+    
+    if ([[pboard types] containsObject:NSColorPboardType])
+    {
+        if (sourceDragMask & NSDragOperationGeneric)
+        {
+            return NSDragOperationGeneric;
+        }
+    }
+    
+    return NSDragOperationNone;
+}
+
+- (BOOL) performDragOperation:(id<NSDraggingInfo>)sender
+{
+    NSPasteboard* pboard = [sender draggingPasteboard];
+    
+    if ([[pboard types] containsObject:NSColorPboardType])
+    {
+        colour = [NSColor colorFromPasteboard:pboard];
+        [self setNeedsDisplay:YES];
+    }
+    
+    return YES;
 }
 
 - (void)setBackgroundColour:(NSColor *)inputColour {

@@ -721,26 +721,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" numberOfTickMarks="10" sliderType="linear" id="e41-9T-Eq8"/>
                     </slider>
-                    <colorWell fixedFrame="YES" bordered="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSN-ft-7TB">
+                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSN-ft-7TB">
                         <rect key="frame" x="494" y="71" width="116" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.15089668783676471" green="0.16319964361248018" blue="0.27704653532608692" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <action selector="colourWellAction:" target="494" id="hpd-HV-nMX"/>
+                        </connections>
                     </colorWell>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="F5703EA4-BE85-4F46-8AC2-A98F501D73B2" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="efG-fM-3OM">
-                <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="7dV-Xs-xhX"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="9a7-Y9-QAX"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="cZA-jB-kKM"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="n6I-b5-VH3"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="hZY-w5-4W1"/>
-                </allowedToolbarItems>
-                <defaultToolbarItems>
-                    <toolbarItem reference="hZY-w5-4W1"/>
-                    <toolbarItem reference="7dV-Xs-xhX"/>
-                </defaultToolbarItems>
-            </toolbar>
         </window>
         <customObject id="494" customClass="CanvasAppDelegate">
             <connections>
