@@ -8,24 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CanvasColourView.h"
-
-@protocol CanvasArrayViewDelegate <NSObject>
-
-- (void) updatePatternWithColour:(NSColor*)arg_colour atLocationX:(NSInteger)arg_x locationY:(NSInteger)arg_y;
-
-@end
+#import "CanvasPattern.h"
 
 @interface CanvasArrayView : NSView <CanvasColourViewDelegate>
 {
     NSMutableArray *cellArray;
-    id<CanvasArrayViewDelegate> delegate;
 }
 
 @property(nonatomic, readonly) NSInteger numberOfColumns;
 @property(nonatomic, readonly) NSInteger numberOfRows;
+@property(nonatomic, readwrite) NSInteger currentTime;
+@property(nonatomic, readwrite) CanvasPattern* currentPattern;
 
 - (void)setHorizontalCells:(NSInteger)horizontalCells VerticalCells:(NSInteger)verticalCells;
-- (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y;
-- (void)setDelegate:(id<CanvasArrayViewDelegate>)arg_delegate;
+- (void)setColour:(NSColor *)inputColour AtLocationX:(NSInteger)x LocationY:(NSInteger)y;
+- (void)drawFrame;
 
 @end

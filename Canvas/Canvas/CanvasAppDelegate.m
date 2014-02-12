@@ -16,7 +16,6 @@
 {
     NSLog(@"didFinishLaunching");
     [self.simulatorView setHorizontalCells:5 VerticalCells:5];
-    [self.simulatorView setDelegate:self];
     
     /*
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
@@ -33,9 +32,7 @@
     currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:filePath]];
     */
     
-    currentPattern = nil;
-    
-    timestepCounter = 0;
+    self.simulatorView.currentPattern = nil;
     
     self.timer = nil;
 }
@@ -44,16 +41,9 @@
 
 - (void) timerEventHandler
 {
-    for(int x = 0; x < 9; x++)
-    {
-        for (int y = 0; y < 9; y++)
-        {
-            NSColor *pixelColour = [currentPattern getColourAtLocationX:x LocationY:y Time:timestepCounter];
-            [self.simulatorView setColour:pixelColour AtLocationX:x LocationY:y];
-        }
-    }
-    timestepCounter++;
-    timestepCounter = timestepCounter % 5;
+    [self.simulatorView drawFrame];
+    self.simulatorView.currentTime ++;
+    self.simulatorView.currentTime %= self.simulatorView.currentPattern.length;
 }
 
 - (void) createPatternFileWithData:(NSData*)data
@@ -69,11 +59,6 @@
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
-- (void)updatePatternWithColour:(NSColor *)arg_colour atLocationX:(NSInteger)arg_x locationY:(NSInteger)arg_y
-{
-    [currentPattern setColour:arg_colour AtLocationX:arg_x LocationY:arg_y Time:timestepCounter];
-}
-
 - (IBAction)tempoFieldAction:(id)sender
 {
     
@@ -83,13 +68,13 @@
 {
     [self.timer invalidate];
     self.timer = nil;
-    timestepCounter = 0;
+    self.simulatorView.currentTime = 0;
+    [self.simulatorView drawFrame];
     [self.playButton setState:NSOffState];
 }
 
 - (IBAction)playButtonAction:(id)sender
 {
-    timestepCounter = 0;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
 }
 
@@ -108,15 +93,17 @@
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL *patternURL = [[openPanel URLs] objectAtIndex:0];
-            currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:[patternURL path]]];
+            NSData *patternData = [[NSFileManager defaultManager] contentsAtPath:[patternURL path]];
+            CanvasPattern* newPattern = [[CanvasPattern alloc] initWithData:patternData];
             
-            if (currentPattern == nil)
+            if (newPattern == nil)
             {
                 // handle error
             }
             else
             {
-                [self.simulatorView setHorizontalCells:currentPattern.width VerticalCells:currentPattern.height];
+                self.simulatorView.currentPattern = newPattern;
+                [self.simulatorView setHorizontalCells:newPattern.width VerticalCells:newPattern.height];
             }
         }
     }];

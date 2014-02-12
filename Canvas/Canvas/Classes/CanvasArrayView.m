@@ -9,6 +9,7 @@
 #import "CanvasArrayView.h"
 
 @implementation CanvasArrayView
+@synthesize currentTime;
 @synthesize numberOfColumns = _numberOfColumns, numberOfRows = _numberOfRows;
 
 - (id)initWithFrame:(NSRect)frame
@@ -23,15 +24,13 @@
     return self;
 }
 
-- (void)setDelegate:(id<CanvasArrayViewDelegate>)arg_delegate
-{
-    delegate = arg_delegate;
-}
-
+// canvasColourView delegate method
 - (void)updateColour:(NSColor *)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y
 {
-    // pass the data up to the app delegate
-    [delegate updatePatternWithColour:arg_colour atLocationX:arg_x locationY:arg_y];
+    if (self.currentPattern != nil)
+    {
+        [self.currentPattern setColour:arg_colour AtLocationX:arg_x LocationY:arg_y Time:self.currentTime];
+    }
 }
 
 - (void)setHorizontalCells:(NSInteger)horizontalCells VerticalCells:(NSInteger)verticalCells
@@ -54,7 +53,7 @@
     }
 }
 
-- (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y
+- (void)setColour:(NSColor *)inputColour AtLocationX:(NSInteger)x LocationY:(NSInteger)y
 {
     if (x >= self.numberOfColumns || y >= self.numberOfRows)
     {
@@ -62,10 +61,22 @@
     }
     else
     {
-        long index = y * self.numberOfColumns + x;
+        NSInteger index = y * self.numberOfColumns + x;
         CanvasColourView *cell = cellArray[index];
         [cell setBackgroundColour:inputColour];
         [self setNeedsDisplay:YES];
+    }
+}
+
+- (void)drawFrame
+{
+    for(NSInteger x = 0; x < self.currentPattern.width; x++)
+    {
+        for (NSInteger y = 0; y < self.currentPattern.height; y++)
+        {
+            NSColor *pixelColour = [self.currentPattern getColourAtLocationX:x LocationY:y Time:self.currentTime];
+            [self setColour:pixelColour AtLocationX:x LocationY:y];
+        }
     }
 }
 

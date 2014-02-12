@@ -10,11 +10,7 @@
 #import "CanvasArrayView.h"
 #import "CanvasPattern.h"
 
-@interface CanvasAppDelegate : NSObject <NSApplicationDelegate, CanvasArrayViewDelegate>
-{
-    CanvasPattern *currentPattern;
-    NSInteger timestepCounter;
-}
+@interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (weak) IBOutlet CanvasArrayView *simulatorView;
 @property (assign) IBOutlet NSWindow *window;
