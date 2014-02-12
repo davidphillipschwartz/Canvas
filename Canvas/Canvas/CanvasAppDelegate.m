@@ -15,7 +15,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSLog(@"didFinishLaunching");
-    [self.simulatorView setHorizontalCells:9 VerticalCells:9];
+    [self.simulatorView setHorizontalCells:5 VerticalCells:5];
     
     /*
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
@@ -110,7 +110,7 @@
             }
             else
             {
-                //self.simulatorView setHorizontalCells:currentPattern. VerticalCells:<#(NSInteger)#>
+                [self.simulatorView setHorizontalCells:currentPattern.width VerticalCells:currentPattern.height];
             }
         }
     }];
