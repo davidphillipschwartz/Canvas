@@ -26,5 +26,6 @@
 - (IBAction)pauseButtonAction:(id)sender;
 - (IBAction)playButtonAction:(id)sender;
 - (IBAction)openPatternAction:(id)sender;
+- (IBAction)savePatternAction:(id)sender;
 
 @end

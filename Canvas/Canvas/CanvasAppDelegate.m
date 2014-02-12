@@ -122,4 +122,14 @@
     }];
 }
 
+- (IBAction)savePatternAction:(id)sender
+{
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    
+    [savePanel beginWithCompletionHandler:^(NSInteger result)
+    {
+        
+    }];
+}
+
 @end
