@@ -725,9 +725,6 @@
                         <rect key="frame" x="494" y="71" width="116" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="0.15089668783676471" green="0.16319964361248018" blue="0.27704653532608692" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <action selector="colourWellAction:" target="494" id="hpd-HV-nMX"/>
-                        </connections>
                     </colorWell>
                 </subviews>
             </view>

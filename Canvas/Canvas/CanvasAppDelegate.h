@@ -10,10 +10,10 @@
 #import "CanvasArrayView.h"
 #import "CanvasPattern.h"
 
-@interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
+@interface CanvasAppDelegate : NSObject <NSApplicationDelegate, CanvasArrayViewDelegate>
 {
     CanvasPattern *currentPattern;
-    int timestepCounter;
+    NSInteger timestepCounter;
 }
 
 @property (weak) IBOutlet CanvasArrayView *simulatorView;
@@ -26,6 +26,5 @@
 - (IBAction)pauseButtonAction:(id)sender;
 - (IBAction)playButtonAction:(id)sender;
 - (IBAction)openPatternAction:(id)sender;
-- (IBAction)colourWellAction:(id)sender;
 
 @end

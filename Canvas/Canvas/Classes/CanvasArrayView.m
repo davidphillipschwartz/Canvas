@@ -23,6 +23,17 @@
     return self;
 }
 
+- (void)setDelegate:(id<CanvasArrayViewDelegate>)arg_delegate
+{
+    delegate = arg_delegate;
+}
+
+- (void)updateColour:(NSColor *)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y
+{
+    // pass the data up to the app delegate
+    [delegate updatePatternWithColour:arg_colour atLocationX:arg_x locationY:arg_y];
+}
+
 - (void)setHorizontalCells:(NSInteger)horizontalCells VerticalCells:(NSInteger)verticalCells
 {
     _numberOfColumns = horizontalCells;
@@ -30,12 +41,13 @@
     CGFloat cellWidth = self.frame.size.width / self.numberOfColumns;
     CGFloat cellHeight = self.frame.size.height / self.numberOfRows;
     cellArray = [[NSMutableArray alloc] init];
-    for (int y = 0; y < self.numberOfRows; y++)
+    for (NSInteger y = 0; y < self.numberOfRows; y++)
     {
-        for (int x = 0; x < self.numberOfColumns; x++)
+        for (NSInteger x = 0; x < self.numberOfColumns; x++)
         {
             NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-            CanvasColourView *cell = [[CanvasColourView alloc] initWithFrame:cellFrame];
+            CanvasColourView *cell = [[CanvasColourView alloc] initWithFrame:cellFrame locationX:x locationY:y];
+            [cell setDelegate:self];
             [self addSubview:cell];
             [cellArray addObject:cell];
         }

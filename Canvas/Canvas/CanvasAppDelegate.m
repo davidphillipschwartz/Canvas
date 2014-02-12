@@ -16,6 +16,7 @@
 {
     NSLog(@"didFinishLaunching");
     [self.simulatorView setHorizontalCells:5 VerticalCells:5];
+    [self.simulatorView setDelegate:self];
     
     /*
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
@@ -68,6 +69,11 @@
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
+- (void)updatePatternWithColour:(NSColor *)arg_colour atLocationX:(NSInteger)arg_x locationY:(NSInteger)arg_y
+{
+    [currentPattern setColour:arg_colour AtLocationX:arg_x LocationY:arg_y Time:timestepCounter];
+}
+
 - (IBAction)tempoFieldAction:(id)sender
 {
     
@@ -114,9 +120,6 @@
             }
         }
     }];
-}
-
-- (IBAction)colourWellAction:(id)sender {
 }
 
 @end

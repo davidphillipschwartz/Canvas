@@ -13,9 +13,23 @@
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
         colour = [NSColor whiteColor];
+        _x = 0;
+        _y = 0;
         [self registerForDraggedTypes:[NSArray arrayWithObject:NSColorPboardType]];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(NSRect)frameRect locationX:(NSInteger)arg_x locationY:(NSInteger)arg_y
+{
+    self = [self initWithFrame:frameRect];
+    if(self)
+    {
+        _x = arg_x;
+        _y = arg_y;
     }
     return self;
 }
@@ -43,10 +57,16 @@
     if ([[pboard types] containsObject:NSColorPboardType])
     {
         colour = [NSColor colorFromPasteboard:pboard];
+        [delegate updateColour:colour atX:_x atY:_y];
         [self setNeedsDisplay:YES];
     }
     
     return YES;
+}
+
+- (void) setDelegate:(id<CanvasColourViewDelegate>)arg_delegate
+{
+    delegate = arg_delegate;
 }
 
 - (void)setBackgroundColour:(NSColor *)inputColour {
