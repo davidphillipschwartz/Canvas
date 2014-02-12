@@ -22,6 +22,7 @@ typedef struct
 - (id)initWithWidth:(int)_width Height:(int)_height Length:(int)_length;
 - (id)initWithData:(NSData*)_data;
 - (void)setColour:(NSColor*)colour AtLocationX:(int)x LocationY:(int)y Time:(int)t;
+- (void)initializeWithDefaultPattern;
 - (NSColor*)getColourAtLocationX:(int)x LocationY:(int)y Time:(int)t;
 - (NSData*)convertPatternToData;
 

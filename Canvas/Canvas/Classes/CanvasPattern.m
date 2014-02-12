@@ -62,6 +62,45 @@
     return self;
 }
 
+- (void) initializeWithDefaultPattern
+{
+    BOOL assertionCondition = (width == 9) && (height == 9) && (length == 5);
+    NSAssert(assertionCondition, @"ERROR: default pattern dimensions are 9x9x5");
+    
+    NSColor* colourArray[5];
+    colourArray[0] = [NSColor purpleColor];
+    colourArray[1] = [NSColor blueColor];
+    colourArray[2] = [NSColor purpleColor];
+    colourArray[3] = [NSColor blueColor];
+    colourArray[4] = [NSColor redColor];
+    
+    // time = 0
+    for (int t = 0; t < 5; t++)
+    {
+        for(int x = 0; x < 9; x++)
+        {
+            for (int y = 0; y < 9; y++)
+            {
+                if (x == 0 || x == 8 || y == 0 || y == 8) {
+                    [self setColour:colourArray[t] AtLocationX:x LocationY:y Time:t];
+                }
+                else if (x == 1 || x == 7 || y == 1 || y ==7) {
+                    [self setColour:colourArray[(t+1)%5] AtLocationX:x LocationY:y Time:t];
+                }
+                else if (x == 2 || x == 6 || y == 2 || y == 6) {
+                    [self setColour:colourArray[(t+2)%5] AtLocationX:x LocationY:y Time:t];
+                }
+                else if (x == 3 || x == 5 || y == 3 || y == 5) {
+                    [self setColour:colourArray[(t+3)%5] AtLocationX:x LocationY:y Time:t];
+                }
+                else {
+                    [self setColour:colourArray[(t+4)%5] AtLocationX:x LocationY:y Time:t];
+                }
+            }
+        }
+    }
+}
+
 -(NSData*)convertPatternToData
 {
     int bufferLength = 3 * sizeof(int) + width * height * length * sizeof(CanvasPixel);
