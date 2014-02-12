@@ -14,8 +14,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    simulatorView = [[CanvasArrayView alloc] initWithX:0.0f Y:0.0f CellWidth:50.0f CellHeight:50.0f HorizontalCells:9 VerticalCells:9];
-    [self.window.contentView addSubview:simulatorView];
+    NSLog(@"didFinishLaunching");
+    [self.simulatorView setHorizontalCells:9 VerticalCells:9];
     
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
     
@@ -46,7 +46,7 @@
         for (int y = 0; y < 9; y++)
         {
             NSColor *pixelColour = [currentPattern getColourAtLocationX:x LocationY:y Time:timestepCounter];
-            [simulatorView setColour:pixelColour AtLocationX:x LocationY:y];
+            [self.simulatorView setColour:pixelColour AtLocationX:x LocationY:y];
         }
     }
     timestepCounter++;
@@ -78,7 +78,7 @@
                 else if (x == 2 || x == 6 || y == 2 || y == 6) {
                     [currentPattern setColour:colourArray[(t+2)%5] AtLocationX:x LocationY:y Time:t];
                 }
-                else if (x == 3 || x == 5 || y == 3 || y ==5) {
+                else if (x == 3 || x == 5 || y == 3 || y == 5) {
                     [currentPattern setColour:colourArray[(t+3)%5] AtLocationX:x LocationY:y Time:t];
                 }
                 else {

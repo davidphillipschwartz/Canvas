@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
-                <outlet property="delegate" destination="494" id="495"/>
+                <outlet property="delegate" destination="494" id="eDv-xE-rn4"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -666,6 +666,7 @@
         </window>
         <customObject id="494" customClass="CanvasAppDelegate">
             <connections>
+                <outlet property="simulatorView" destination="HAr-Oq-fLF" id="SxP-Rz-XuL"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>

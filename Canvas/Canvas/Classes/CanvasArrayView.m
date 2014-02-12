@@ -13,33 +13,33 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    // default to 2x2 grid filling frame
-    self = [self initWithX:frame.origin.x Y:frame.origin.y CellWidth:(frame.size.width / 2) CellHeight:(frame.size.height / 2) HorizontalCells:2 VerticalCells:2];
-    
+    self = [super initWithFrame:frame];
+    if(self)
+    {
+        cellArray = nil;
+        _numberOfRows = 0;
+        _numberOfColumns = 0;
+    }
     return self;
 }
 
-- (id)initWithX:(CGFloat)_x Y:(CGFloat)_y CellWidth:(CGFloat)cellWidth CellHeight:(CGFloat)cellHeight HorizontalCells:(int)horizontalCells VerticalCells:(int)verticalCells
+- (void)setHorizontalCells:(NSInteger)horizontalCells VerticalCells:(NSInteger)verticalCells
 {
-    NSRect frame = NSMakeRect(_x, _y, cellWidth*horizontalCells, cellHeight*verticalCells);
-    self = [super initWithFrame:frame];
-    if (self)
+    _numberOfColumns = horizontalCells;
+    _numberOfRows = verticalCells;
+    CGFloat cellWidth = self.frame.size.width / self.numberOfColumns;
+    CGFloat cellHeight = self.frame.size.height / self.numberOfRows;
+    cellArray = [[NSMutableArray alloc] init];
+    for (int y = 0; y < self.numberOfRows; y++)
     {
-        cellArray = [[NSMutableArray alloc] init];
-        _numberOfColumns = horizontalCells;
-        _numberOfRows = verticalCells;
-        for (int y = 0; y < self.numberOfRows; y++)
+        for (int x = 0; x < self.numberOfColumns; x++)
         {
-            for (int x = 0; x < self.numberOfColumns; x++)
-            {
-                NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-                CanvasColourView *cell = [[CanvasColourView alloc] initWithFrame:cellFrame];
-                [self addSubview:cell];
-                [cellArray addObject:cell];
-            }
+            NSRect cellFrame = NSMakeRect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+            CanvasColourView *cell = [[CanvasColourView alloc] initWithFrame:cellFrame];
+            [self addSubview:cell];
+            [cellArray addObject:cell];
         }
     }
-    return self;
 }
 
 - (void)setColour:(NSColor *)inputColour AtLocationX:(int)x LocationY:(int)y

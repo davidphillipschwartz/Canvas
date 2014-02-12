@@ -12,12 +12,11 @@
 
 @interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
 {
-    CanvasArrayView *simulatorView;
     CanvasPattern *currentPattern;
-    
     int timestepCounter;
 }
 
+@property (weak) IBOutlet CanvasArrayView *simulatorView;
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, strong) NSTimer *timer;
 
