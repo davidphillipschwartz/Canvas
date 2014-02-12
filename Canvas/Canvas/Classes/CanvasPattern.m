@@ -25,7 +25,7 @@
         _width = arg_width;
         _height = arg_height;
         _length = arg_length;
-        pixelArray = calloc(_width*_height*_length, sizeof(CanvasPixel)); // set all black
+        pixelArray = malloc(_width * _height * _length * sizeof(CanvasPixel));
     }
     return self;
 }
@@ -98,6 +98,20 @@
                 else {
                     [self setColour:colourArray[(t+4)%5] AtLocationX:x LocationY:y Time:t];
                 }
+            }
+        }
+    }
+}
+
+- (void)clearPatternToWhite
+{
+    for (NSInteger t = 0; t < _length; t++)
+    {
+        for (NSInteger y = 0; y < _height; y++)
+        {
+            for (NSInteger x = 0; x < _width; x++)
+            {
+                [self setColour:[NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f] AtLocationX:x LocationY:y Time:t];
             }
         }
     }

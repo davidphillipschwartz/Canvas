@@ -16,6 +16,7 @@
 {
     [self.simulatorView setHorizontalCells:5 VerticalCells:5];
     self.simulatorView.currentPattern = [[CanvasPattern alloc] initWithWidth:5 Height:5 Length:5];
+    [self.simulatorView.currentPattern clearPatternToWhite];
     // note: frameSlider initialized in nib
     self.timer = nil;
 }

@@ -26,6 +26,7 @@ typedef struct
 - (id)initWithData:(NSData*)_data;
 - (void)setColour:(NSColor*)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t;
 - (void)initializeWithDefaultPattern;
+- (void)clearPatternToWhite;
 - (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t;
 - (NSData*)convertPatternToData;
 - (BOOL)savePatternToFileAtPath:(NSString*)arg_path;
