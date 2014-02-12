@@ -9,6 +9,7 @@
 #import "CanvasArrayView.h"
 
 @implementation CanvasArrayView
+@synthesize numberOfColumns = _numberOfColumns, numberOfRows = _numberOfRows;
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -25,8 +26,8 @@
     if (self)
     {
         cellArray = [[NSMutableArray alloc] init];
-        self.numberOfColumns = horizontalCells;
-        self.numberOfRows = verticalCells;
+        _numberOfColumns = horizontalCells;
+        _numberOfRows = verticalCells;
         for (int y = 0; y < self.numberOfRows; y++)
         {
             for (int x = 0; x < self.numberOfColumns; x++)

@@ -653,7 +653,7 @@
             <rect key="contentRect" x="335" y="390" width="800" height="450"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <value key="minSize" type="size" width="800" height="450"/>
-            <view key="contentView" id="372" userLabel="Main View">
+            <view key="contentView" id="372" userLabel="MainView">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
