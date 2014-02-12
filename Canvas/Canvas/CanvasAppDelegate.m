@@ -17,10 +17,9 @@
     NSLog(@"didFinishLaunching");
     [self.simulatorView setHorizontalCells:9 VerticalCells:9];
     
+    /*
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
-    
     [currentPattern initializeWithDefaultPattern];
-    
     [self createPatternFileWithData:[currentPattern convertPatternToData]];
     
     NSString *documentsDirectory;
@@ -29,8 +28,11 @@
         documentsDirectory = paths[0];
     }
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"David/Canvas/testFile.canvas"];
-    
+
     currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:filePath]];
+    */
+    
+    currentPattern = nil;
     
     timestepCounter = 0;
     
@@ -100,7 +102,7 @@
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL *patternURL = [[openPanel URLs] objectAtIndex:0];
-            currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:[patternURL absoluteString]]];
+            currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:[patternURL path]]];
         }
     }];
 }
