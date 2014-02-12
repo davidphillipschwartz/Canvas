@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        colour = [NSColor purpleColor]; // default = swag
+        colour = [NSColor whiteColor]; // default != swag :c
     }
     return self;
 }

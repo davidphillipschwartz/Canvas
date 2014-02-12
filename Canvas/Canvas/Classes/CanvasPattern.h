@@ -15,15 +15,18 @@ typedef struct
 
 @interface CanvasPattern : NSObject
 {
-    int width, height, length;
     CanvasPixel* pixelArray;
 }
 
-- (id)initWithWidth:(int)_width Height:(int)_height Length:(int)_length;
+@property (nonatomic, readonly) NSInteger width;
+@property (nonatomic, readonly) NSInteger height;
+@property (nonatomic, readonly) NSInteger length;
+
+- (id)initWithWidth:(NSInteger)_width Height:(NSInteger)_height Length:(NSInteger)_length;
 - (id)initWithData:(NSData*)_data;
-- (void)setColour:(NSColor*)colour AtLocationX:(int)x LocationY:(int)y Time:(int)t;
+- (void)setColour:(NSColor*)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t;
 - (void)initializeWithDefaultPattern;
-- (NSColor*)getColourAtLocationX:(int)x LocationY:(int)y Time:(int)t;
+- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t;
 - (NSData*)convertPatternToData;
 
 @end

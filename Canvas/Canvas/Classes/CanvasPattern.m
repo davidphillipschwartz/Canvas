@@ -10,20 +10,22 @@
 
 @implementation CanvasPattern
 
+@synthesize width = _width, height = _height, length = _length;
+
 - (id)init
 {
     self = [self initWithWidth:0 Height:0 Length:0];
     return self;
 }
 
-- (id)initWithWidth:(int)_width Height:(int)_height Length:(int)_length
+- (id)initWithWidth:(NSInteger)arg_width Height:(NSInteger)arg_height Length:(NSInteger)arg_length
 {
     self = [super init];
     if (self) {
-        width = _width;
-        height = _height;
-        length = _length;
-        pixelArray = calloc(width*height*length, sizeof(CanvasPixel)); // set all black
+        _width = arg_width;
+        _height = arg_height;
+        _length = arg_length;
+        pixelArray = calloc(_width*_height*_length, sizeof(CanvasPixel)); // set all black
     }
     return self;
 }
@@ -32,24 +34,24 @@
 {
     NSAssert(_data != nil, @"DATA IS NIL AGHHHH");
     
-    int* prefixBuffer = malloc(3 * sizeof(int));
-    [_data getBytes:prefixBuffer length:3 * sizeof(int)];
+    NSInteger* prefixBuffer = malloc(3 * sizeof(NSInteger));
+    [_data getBytes:prefixBuffer length:3 * sizeof(NSInteger)];
     self = [self initWithWidth:prefixBuffer[0] Height:prefixBuffer[1] Length:prefixBuffer[2]];
     free(prefixBuffer);
     
-    NSRange pixelDataRange = {.location = 3 * sizeof(int), .length = width * height * length * sizeof(CanvasPixel)};
-    double* buffer = malloc(width * height * length * sizeof(CanvasPixel));
+    NSRange pixelDataRange = {.location = 3 * sizeof(NSInteger), .length = _width * _height * _length * sizeof(CanvasPixel)};
+    double* buffer = malloc(_width * _height * _length * sizeof(CanvasPixel));
     [_data getBytes:buffer range:pixelDataRange];
     
-    for (int t = 0; t < length; t++)
+    for (int t = 0; t < _length; t++)
     {
-        for(int y = 0; y < height; y++)
+        for(int y = 0; y < _height; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < _width; x++)
             {
-                int currentRedIndex = 3 * (width * height * t + width * y + x);
-                int currentGreenIndex = currentRedIndex + 1;
-                int currentBlueIndex = currentGreenIndex + 1;
+                NSInteger currentRedIndex = 3 * (_width * _height * t + _width * y + x);
+                NSInteger currentGreenIndex = currentRedIndex + 1;
+                NSInteger currentBlueIndex = currentGreenIndex + 1;
                 
                 NSColor* currentColour = [NSColor colorWithCalibratedRed:buffer[currentRedIndex] green:buffer[currentGreenIndex] blue:buffer[currentBlueIndex] alpha:1.0f];
                 
@@ -64,7 +66,7 @@
 
 - (void) initializeWithDefaultPattern
 {
-    BOOL assertionCondition = (width == 9) && (height == 9) && (length == 5);
+    BOOL assertionCondition = (_width == 9) && (_height == 9) && (_length == 5);
     NSAssert(assertionCondition, @"ERROR: default pattern dimensions are 9x9x5");
     
     NSColor* colourArray[5];
@@ -103,20 +105,20 @@
 
 -(NSData*)convertPatternToData
 {
-    int bufferLength = 3 * sizeof(int) + width * height * length * sizeof(CanvasPixel);
-    void* buffer = malloc(bufferLength);
-    int prefix [3] = {width, height, length};
-    memcpy(buffer, prefix, 3 * sizeof(int));
-    memcpy(buffer + 3 * sizeof(int), pixelArray, width * height * length * sizeof(CanvasPixel));
+    void* buffer = malloc(3 * sizeof(NSInteger) + _width * _height * _length * sizeof(CanvasPixel));
+    NSInteger prefix [3] = {_width, _height, _length};
+    memcpy(buffer, prefix, 3 * sizeof(NSInteger));
+    memcpy(buffer + 3 * sizeof(NSInteger), pixelArray, _width * _height * _length * sizeof(CanvasPixel));
     
-    NSData* patternData = [[NSData alloc] initWithBytes:buffer length:bufferLength];
+    NSData* patternData = [[NSData alloc] initWithBytes:buffer
+                                                 length:3 * sizeof(NSInteger) + _width * _height * _length * sizeof(CanvasPixel)];
     free(buffer);
     return patternData;
 }
 
--(void)setColour:(NSColor *)colour AtLocationX:(int)x LocationY:(int)y Time:(int)t
+-(void)setColour:(NSColor *)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t
 {
-    if ((x >= width) || (y >= height) || (t >= length))
+    if ((x >= _width) || (y >= _height) || (t >= _length))
     {
         NSLog(@"CanvasPattern setColour: location out of bounds");
     }
@@ -128,21 +130,21 @@
         
         // store new pixel
         CanvasPixel newPixel = { .r = red, .g = green, .b = blue };
-        int index = width * height * t + width * y + x;
+        NSInteger index = _width * _height * t + _width * y + x;
         pixelArray[index] = newPixel;
     }
 }
 
-- (NSColor*)getColourAtLocationX:(int)x LocationY:(int)y Time:(int)t
+- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t
 {
-    if ((x >= width) || (y >= height) || (t >= length))
+    if ((x >= _width) || (y >= _height) || (t >= _length))
     {
         NSLog(@"CanvasPattern getColour: location out of bounds");
         return nil;
     }
     else
     {
-        int index = width * height * t + width * y + x;
+        NSInteger index = _width * _height * t + _width * y + x;
         CanvasPixel pixel = pixelArray[index];
         return [NSColor colorWithCalibratedRed:pixel.r green:pixel.g blue:pixel.b alpha:1.0f];
     }

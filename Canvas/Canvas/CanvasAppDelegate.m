@@ -103,6 +103,15 @@
         {
             NSURL *patternURL = [[openPanel URLs] objectAtIndex:0];
             currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:[patternURL path]]];
+            
+            if (currentPattern == nil)
+            {
+                // handle error
+            }
+            else
+            {
+                //self.simulatorView setHorizontalCells:currentPattern. VerticalCells:<#(NSInteger)#>
+            }
         }
     }];
 }
