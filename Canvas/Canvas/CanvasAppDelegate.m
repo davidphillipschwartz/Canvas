@@ -69,9 +69,7 @@
 {
     [self.timer invalidate];
     self.timer = nil;
-    self.simulatorView.currentTime = 0;
-    [self.frameSlider setIntegerValue:0];
-    [self.simulatorView drawFrame];
+    [self.frameSlider setIntegerValue:self.simulatorView.currentTime];
     [self.playButton setState:NSOffState];
 }
 
@@ -118,6 +116,10 @@
             {
                 self.simulatorView.currentPattern = newPattern;
                 [self.simulatorView setHorizontalCells:newPattern.width VerticalCells:newPattern.height];
+                self.simulatorView.currentTime = 0;
+                [self.simulatorView drawFrame];
+                
+                [self.frameSlider setIntegerValue:0];
                 [self.frameSlider setNumberOfTickMarks:newPattern.length];
                 [self.frameSlider setMaxValue:newPattern.length - 1];
             }
