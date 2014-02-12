@@ -15,7 +15,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSLog(@"didFinishLaunching");
-    [self.simulatorView setHorizontalCells:10 VerticalCells:10];
+    [self.simulatorView setHorizontalCells:9 VerticalCells:9];
     
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
     
@@ -66,12 +66,12 @@
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
-- (IBAction)tempoField:(id)sender
+- (IBAction)tempoFieldAction:(id)sender
 {
     
 }
 
-- (IBAction)pauseButton:(id)sender
+- (IBAction)pauseButtonAction:(id)sender
 {
     [self.timer invalidate];
     self.timer = nil;
@@ -79,9 +79,30 @@
     [self.playButton setState:NSOffState];
 }
 
-- (IBAction)playButton:(id)sender
+- (IBAction)playButtonAction:(id)sender
 {
     timestepCounter = 0;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
 }
+
+- (IBAction)openPatternAction:(id)sender
+{
+    if (self.timer != nil)
+    {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    
+    [openPanel beginWithCompletionHandler:^(NSInteger result)
+    {
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            NSURL *patternURL = [[openPanel URLs] objectAtIndex:0];
+            currentPattern = [[CanvasPattern alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:[patternURL absoluteString]]];
+        }
+    }];
+}
+
 @end

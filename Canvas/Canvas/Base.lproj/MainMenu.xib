@@ -669,7 +669,7 @@
                             <font key="font" size="21" name="LucidaGrande"/>
                         </buttonCell>
                         <connections>
-                            <action selector="pauseButton:" target="494" id="sjY-NI-IHe"/>
+                            <action selector="pauseButtonAction:" target="494" id="j94-lu-eoX"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-Xd-yYQ">
@@ -680,7 +680,7 @@
                             <font key="font" size="25" name="LucidaGrande"/>
                         </buttonCell>
                         <connections>
-                            <action selector="playButton:" target="494" id="ARo-iZ-yCc"/>
+                            <action selector="playButtonAction:" target="494" id="3BU-pd-LwK"/>
                         </connections>
                     </button>
                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b19-hW-eqv">
@@ -692,7 +692,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <action selector="tempoField:" target="494" id="kiG-3T-FLF"/>
+                            <action selector="tempoFieldAction:" target="494" id="nr3-kn-RyS"/>
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PE6-Hk-ca4">
@@ -704,6 +704,17 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9d1-pI-tgN">
+                        <rect key="frame" x="494" y="94" width="116" height="33"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="smallSquare" title="Open Pattern" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LtK-D8-ebY">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="openPatternAction:" target="494" id="Tuj-kS-H6z"/>
+                            </connections>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
         </window>

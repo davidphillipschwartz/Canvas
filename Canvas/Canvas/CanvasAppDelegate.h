@@ -22,8 +22,9 @@
 
 @property (weak) IBOutlet NSButton *playButton;
 
-- (IBAction)tempoField:(id)sender;
-- (IBAction)pauseButton:(id)sender;
-- (IBAction)playButton:(id)sender;
+- (IBAction)tempoFieldAction:(id)sender;
+- (IBAction)pauseButtonAction:(id)sender;
+- (IBAction)playButtonAction:(id)sender;
+- (IBAction)openPatternAction:(id)sender;
 
 @end
