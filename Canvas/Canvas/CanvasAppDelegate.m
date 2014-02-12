@@ -15,7 +15,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSLog(@"didFinishLaunching");
-    [self.simulatorView setHorizontalCells:9 VerticalCells:9];
+    [self.simulatorView setHorizontalCells:10 VerticalCells:10];
     
     currentPattern = [[CanvasPattern alloc] initWithWidth:9 Height:9 Length:5];
     
@@ -102,14 +102,21 @@
     NSAssert(success, @"ERROR CREATING PATTERN FILE");
 }
 
-- (IBAction)pauseButton:(id)sender {
+- (IBAction)tempoField:(id)sender
+{
+    
+}
+
+- (IBAction)pauseButton:(id)sender
+{
     [self.timer invalidate];
     self.timer = nil;
     timestepCounter = 0;
     [self.playButton setState:NSOffState];
 }
 
-- (IBAction)playButton:(id)sender {
+- (IBAction)playButton:(id)sender
+{
     timestepCounter = 0;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
 }
