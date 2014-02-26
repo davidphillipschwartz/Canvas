@@ -45,6 +45,11 @@
         [leftPath appendBezierPathWithPoints:leftPointArray count:3];
         [bottomPath appendBezierPathWithPoints:bottomPointArray count:3];
         
+        [rightPath closePath];
+        [topPath closePath];
+        [leftPath closePath];
+        [bottomPath closePath];
+        
         rightColour = topColour = leftColour = bottomColour = [NSColor whiteColor];
         [self registerForDraggedTypes:[NSArray arrayWithObject:NSColorPboardType]];
     }
@@ -73,8 +78,8 @@
     
     if ([[pboard types] containsObject:NSColorPboardType])
     {
-        colour = [NSColor colorFromPasteboard:pboard];
-        [delegate updateColour:colour atX:_x atY:_y];
+        rightColour = topColour = leftColour = bottomColour = [NSColor colorFromPasteboard:pboard];
+        [delegate updateColour:rightColour atX:_x atY:_y];
         [self setNeedsDisplay:YES];
     }
     
@@ -87,20 +92,25 @@
 }
 
 - (void)setBackgroundColour:(NSColor *)inputColour {
-    colour = inputColour;
+    rightColour = topColour = leftColour = bottomColour = inputColour;
     [self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
     // draw border
-    //[colour set];
-    //NSRectFill([self bounds]);
+    [rightColour set];
+    NSRectFill([self bounds]);
     
     [[NSColor blackColor] set];
     NSBezierPath *border = [NSBezierPath bezierPathWithRect:[self bounds]];
     [border setLineWidth:1.0f];
     [border stroke];
+    
+    [rightPath stroke];
+    [topPath stroke];
+    [leftPath stroke];
+    [bottomPath stroke];
     
     // draw interior of triangles
 
