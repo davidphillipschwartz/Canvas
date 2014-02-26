@@ -16,7 +16,8 @@
 
 @interface CanvasColourView : NSView <NSDraggingDestination>
 {
-    NSColor *colour;
+    NSColor *rightColour, *topColour, *leftColour, *bottomColour;
+    NSBezierPath *rightPath, *topPath, *leftPath, *bottomPath;
     NSInteger _x, _y;
     id<CanvasColourViewDelegate> delegate;
 }

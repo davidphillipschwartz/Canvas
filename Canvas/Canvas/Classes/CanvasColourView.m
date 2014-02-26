@@ -12,24 +12,41 @@
 
 - (id)initWithFrame:(NSRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        colour = [NSColor whiteColor];
-        _x = 0;
-        _y = 0;
-        [self registerForDraggedTypes:[NSArray arrayWithObject:NSColorPboardType]];
-    }
+    self = [self initWithFrame:frame locationX:0 locationY:0];
     return self;
 }
 
 - (id)initWithFrame:(NSRect)frameRect locationX:(NSInteger)arg_x locationY:(NSInteger)arg_y
 {
-    self = [self initWithFrame:frameRect];
+    self = [super initWithFrame:frameRect];
     if(self)
     {
         _x = arg_x;
         _y = arg_y;
+        
+        CGPoint bottomLeft = frameRect.origin;
+        CGPoint topLeft = CGPointMake(bottomLeft.x, bottomLeft.y + frameRect.size.height);
+        CGPoint topRight = CGPointMake(topLeft.x + frameRect.size.width, topLeft.y);
+        CGPoint bottomRight = CGPointMake(topRight.x, bottomLeft.y);
+        CGPoint center = CGPointMake(bottomLeft.x + frameRect.size.width / 2, bottomLeft.y + frameRect.size.height / 2);
+        
+        CGPoint rightPointArray[3] = {bottomRight, topRight, center};
+        CGPoint topPointArray[3] = {topRight, center, topLeft};
+        CGPoint leftPointArray[3] = {topLeft, center, bottomRight};
+        CGPoint bottomPointArray[3] = {bottomLeft, center, bottomRight};
+        
+        rightPath = [NSBezierPath bezierPath];
+        topPath = [NSBezierPath bezierPath];
+        leftPath = [NSBezierPath bezierPath];
+        bottomPath = [NSBezierPath bezierPath];
+        
+        [rightPath appendBezierPathWithPoints:rightPointArray count:3];
+        [topPath appendBezierPathWithPoints:topPointArray count:3];
+        [leftPath appendBezierPathWithPoints:leftPointArray count:3];
+        [bottomPath appendBezierPathWithPoints:bottomPointArray count:3];
+        
+        rightColour = topColour = leftColour = bottomColour = [NSColor whiteColor];
+        [self registerForDraggedTypes:[NSArray arrayWithObject:NSColorPboardType]];
     }
     return self;
 }
@@ -76,24 +93,17 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    /*
-    // -- circles -- //
-    [[NSColor grayColor] set];
-    NSRectFill([self bounds]);
-    NSRect inset = NSInsetRect([self bounds], 1.0f, 1.0f);
-    NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:inset];
-    [colour set];
-    [circlePath fill];
-    */
-    
-    // -- squares -- //
-    [colour set];
-    NSRectFill([self bounds]);
+    // draw border
+    //[colour set];
+    //NSRectFill([self bounds]);
     
     [[NSColor blackColor] set];
     NSBezierPath *border = [NSBezierPath bezierPathWithRect:[self bounds]];
     [border setLineWidth:1.0f];
     [border stroke];
+    
+    // draw interior of triangles
+
 }
 
 - (void)drawRect

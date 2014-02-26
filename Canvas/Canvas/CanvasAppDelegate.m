@@ -46,7 +46,8 @@
 
 - (IBAction)playButtonAction:(id)sender
 {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
+    CGFloat interval = 1.0f;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timerEventHandler) userInfo:nil repeats:YES];
 }
 
 - (IBAction)frameSliderAction:(NSSlider*)sender
