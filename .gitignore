@@ -18,3 +18,16 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+
+# Windows
+# source: https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
