@@ -24,7 +24,7 @@
         _x = arg_x;
         _y = arg_y;
         
-        CGPoint bottomLeft = self.bounds.origin;
+        CGPoint bottomLeft = self.frame.origin;
         CGPoint topLeft = CGPointMake(bottomLeft.x, bottomLeft.y + frameRect.size.height);
         CGPoint topRight = CGPointMake(topLeft.x + frameRect.size.width, topLeft.y);
         CGPoint bottomRight = CGPointMake(topRight.x, bottomLeft.y);
@@ -78,24 +78,34 @@
     
     if ([[pboard types] containsObject:NSColorPboardType])
     {
-        NSPoint location = [sender draggingLocation];
+        NSPoint originOfArrayView = self.superview.frame.origin;
+        NSPoint originOfColourView = self.frame.origin;
         
-        if ([rightPath containsPoint:location])
+        NSPoint locationInWindow = [sender draggingLocation];
+        NSPoint locationInArrayView = NSMakePoint(locationInWindow.x - originOfArrayView.x, locationInWindow.y - originOfArrayView.y);
+        NSPoint locationInColourView = NSMakePoint(locationInArrayView.x - originOfColourView.x, locationInArrayView.y - originOfColourView.y);
+        
+        NSRect r = rightPath.bounds;
+        NSRect t = topPath.bounds;
+        NSRect l = leftPath.bounds;
+        NSRect b = bottomPath.bounds;
+        
+        if ([rightPath containsPoint:locationInColourView])
         {
             rightColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:rightColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantRight];
         }
-        else if ([topPath containsPoint:location])
+        else if ([topPath containsPoint:locationInColourView])
         {
             topColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:topColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantTop];
         }
-        else if ([leftPath containsPoint:location])
+        else if ([leftPath containsPoint:locationInColourView])
         {
             leftColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:topColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantLeft];
         }
-        else
+        else if ([bottomPath containsPoint:locationInColourView])
         {
             bottomColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:bottomColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantBottom];
@@ -158,6 +168,9 @@
     [topPath stroke];
     [bottomPath stroke];
     [leftPath stroke];
+    
+    [[NSColor greenColor] set];
+    [topPath stroke];
 }
 
 - (void)drawRect
