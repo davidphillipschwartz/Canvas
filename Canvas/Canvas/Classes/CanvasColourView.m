@@ -24,7 +24,7 @@
         _x = arg_x;
         _y = arg_y;
         
-        CGPoint bottomLeft = frameRect.origin;
+        CGPoint bottomLeft = self.bounds.origin;
         CGPoint topLeft = CGPointMake(bottomLeft.x, bottomLeft.y + frameRect.size.height);
         CGPoint topRight = CGPointMake(topLeft.x + frameRect.size.width, topLeft.y);
         CGPoint bottomRight = CGPointMake(topRight.x, bottomLeft.y);
@@ -35,10 +35,10 @@
         CGPoint leftPointArray[3] = {topLeft, center, bottomRight};
         CGPoint bottomPointArray[3] = {bottomLeft, center, bottomRight};
         
-        rightPath = [NSBezierPath bezierPath];
-        topPath = [NSBezierPath bezierPath];
-        leftPath = [NSBezierPath bezierPath];
-        bottomPath = [NSBezierPath bezierPath];
+        rightPath = [[NSBezierPath alloc] init];
+        topPath = [[NSBezierPath alloc] init];
+        leftPath = [[NSBezierPath alloc] init];
+        bottomPath = [[NSBezierPath alloc] init];
         
         [rightPath appendBezierPathWithPoints:rightPointArray count:3];
         [topPath appendBezierPathWithPoints:topPointArray count:3];
