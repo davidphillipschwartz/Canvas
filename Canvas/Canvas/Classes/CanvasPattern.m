@@ -40,7 +40,7 @@
     free(prefixBuffer);
     
     NSRange pixelDataRange = {.location = 3 * sizeof(NSInteger), .length = 4 * _width * _height * _length * sizeof(CanvasPixel)};
-    double* buffer = malloc(4 * _width * _height * _length * sizeof(CanvasPixel));
+    CanvasPixel* buffer = malloc(4 * _width * _height * _length * sizeof(CanvasPixel));
     [_data getBytes:buffer range:pixelDataRange];
     
     for (int t = 0; t < _length; t++)
@@ -51,12 +51,8 @@
             {
                 for (int q = 0; q < 4; q++)
                 {
-                    NSInteger currentRedIndex = 3 * (_width * _height * t + _width * y + x + q);
-                    NSInteger currentGreenIndex = currentRedIndex + 1;
-                    NSInteger currentBlueIndex = currentGreenIndex + 1;
-                    
-                    NSColor* currentColour = [NSColor colorWithCalibratedRed:buffer[currentRedIndex] green:buffer[currentGreenIndex] blue:buffer[currentBlueIndex] alpha:1.0f];
-                    
+                    CanvasPixel currentPixel = buffer[4 * (_width * _height * t + _width * y + x) + q];
+                    NSColor* currentColour = [NSColor colorWithCalibratedRed:currentPixel.r green:currentPixel.g blue:currentPixel.b alpha:1.0f];
                     [self setColour:currentColour AtLocationX:x LocationY:y Quadrant:q Time:t];
                 }
             }

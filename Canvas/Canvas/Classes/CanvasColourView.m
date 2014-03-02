@@ -79,7 +79,6 @@
     if ([[pboard types] containsObject:NSColorPboardType])
     {
         NSPoint originOfArrayView = self.superview.frame.origin;
-        NSPoint originOfColourView = self.frame.origin;
         
         NSPoint locationInWindow = [sender draggingLocation];
         NSPoint locationInArrayView = NSMakePoint(locationInWindow.x - originOfArrayView.x, locationInWindow.y - originOfArrayView.y);
