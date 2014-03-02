@@ -83,13 +83,7 @@
         
         NSPoint locationInWindow = [sender draggingLocation];
         NSPoint locationInArrayView = NSMakePoint(locationInWindow.x - originOfArrayView.x, locationInWindow.y - originOfArrayView.y);
-        NSPoint locationInColourView = NSMakePoint(locationInArrayView.x - originOfColourView.x, locationInArrayView.y - originOfColourView.y);
-        
-        NSRect r = rightPath.bounds;
-        NSRect t = topPath.bounds;
-        NSRect l = leftPath.bounds;
-        NSRect b = bottomPath.bounds;
-        
+
         if ([rightPath containsPoint:locationInArrayView])
         {
             rightColour = [NSColor colorFromPasteboard:pboard];
@@ -168,9 +162,6 @@
     [topPath stroke];
     [bottomPath stroke];
     [leftPath stroke];
-    
-    [[NSColor greenColor] set];
-    [topPath stroke];
 }
 
 - (void)drawRect

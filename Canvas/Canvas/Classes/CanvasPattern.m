@@ -25,7 +25,7 @@
         _width = arg_width;
         _height = arg_height;
         _length = arg_length;
-        pixelArray = malloc(_width * _height * _length * sizeof(CanvasPixel));
+        pixelArray = malloc(4 * _width * _height * _length * sizeof(CanvasPixel));
     }
     return self;
 }
@@ -168,7 +168,7 @@
         
         // store new pixel
         CanvasPixel newPixel = { .r = red, .g = green, .b = blue };
-        NSInteger index = _width * _height * t + _width * y + x + quadrant;
+        NSInteger index = 4 * (_width * _height * t + _width * y + x) + quadrant;
         pixelArray[index] = newPixel;
     }
 }
@@ -182,7 +182,7 @@
     }
     else
     {
-        NSInteger index = _width * _height * t + _width * y + x + quadrant;
+        NSInteger index = 4 * (_width * _height * t + _width * y + x) + quadrant;
         CanvasPixel pixel = pixelArray[index];
         return [NSColor colorWithCalibratedRed:pixel.r green:pixel.g blue:pixel.b alpha:1.0f];
     }
