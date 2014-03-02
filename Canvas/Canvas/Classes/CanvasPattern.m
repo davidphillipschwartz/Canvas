@@ -58,8 +58,8 @@
             }
         }
     }
-    free(buffer);
     
+    free(buffer);
     return self;
 }
 
