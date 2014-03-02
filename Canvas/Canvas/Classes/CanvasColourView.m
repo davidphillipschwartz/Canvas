@@ -78,8 +78,28 @@
     
     if ([[pboard types] containsObject:NSColorPboardType])
     {
-        rightColour = topColour = leftColour = bottomColour = [NSColor colorFromPasteboard:pboard];
-        [delegate updateColour:rightColour atX:_x atY:_y];
+        NSPoint location = [sender draggingLocation];
+        
+        if ([rightPath containsPoint:location])
+        {
+            rightColour = [NSColor colorFromPasteboard:pboard];
+            [delegate updateColour:rightColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantRight];
+        }
+        else if ([topPath containsPoint:location])
+        {
+            topColour = [NSColor colorFromPasteboard:pboard];
+            [delegate updateColour:topColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantTop];
+        }
+        else if ([leftPath containsPoint:location])
+        {
+            leftColour = [NSColor colorFromPasteboard:pboard];
+            [delegate updateColour:topColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantLeft];
+        }
+        else
+        {
+            bottomColour = [NSColor colorFromPasteboard:pboard];
+            [delegate updateColour:bottomColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantBottom];
+        }
         [self setNeedsDisplay:YES];
     }
     
@@ -91,17 +111,32 @@
     delegate = arg_delegate;
 }
 
-- (void)setBackgroundColour:(NSColor *)inputColour {
-    rightColour = topColour = leftColour = bottomColour = inputColour;
+- (void)setBackgroundColour:(NSColor *)inputColour forQuadrant:(CanvasColourViewQuadrant)quadrant
+{
+    switch (quadrant)
+    {
+        case CanvasColourViewQuadrantRight:
+            rightColour = inputColour;
+            break;
+        case CanvasColourViewQuadrantTop:
+            topColour = inputColour;
+            break;
+        case CanvasColourViewQuadrantLeft:
+            leftColour = inputColour;
+            break;
+        case CanvasColourViewQuadrantBottom:
+            bottomColour = inputColour;
+            break;
+        default:
+            [[NSException exceptionWithName:@"CanvasInvalidArgumentException" reason:@"Invalid Quadrant" userInfo:nil] raise];
+            break;
+    }
     [self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
     // draw border
-    [rightColour set];
-    NSRectFill([self bounds]);
-    
     [[NSColor blackColor] set];
     NSBezierPath *border = [NSBezierPath bezierPathWithRect:[self bounds]];
     [border setLineWidth:1.0f];
@@ -113,7 +148,17 @@
     [bottomPath stroke];
     
     // draw interior of triangles
-
+    [rightColour set];
+    [rightPath fill];
+    
+    [topColour set];
+    [topPath fill];
+    
+    [leftColour set];
+    [leftPath fill];
+    
+    [bottomColour set];
+    [bottomPath fill];
 }
 
 - (void)drawRect

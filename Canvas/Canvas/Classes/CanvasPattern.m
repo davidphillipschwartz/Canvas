@@ -39,8 +39,8 @@
     self = [self initWithWidth:prefixBuffer[0] Height:prefixBuffer[1] Length:prefixBuffer[2]];
     free(prefixBuffer);
     
-    NSRange pixelDataRange = {.location = 3 * sizeof(NSInteger), .length = _width * _height * _length * sizeof(CanvasPixel)};
-    double* buffer = malloc(_width * _height * _length * sizeof(CanvasPixel));
+    NSRange pixelDataRange = {.location = 3 * sizeof(NSInteger), .length = 4 * _width * _height * _length * sizeof(CanvasPixel)};
+    double* buffer = malloc(4 * _width * _height * _length * sizeof(CanvasPixel));
     [_data getBytes:buffer range:pixelDataRange];
     
     for (int t = 0; t < _length; t++)
@@ -49,13 +49,16 @@
         {
             for (int x = 0; x < _width; x++)
             {
-                NSInteger currentRedIndex = 3 * (_width * _height * t + _width * y + x);
-                NSInteger currentGreenIndex = currentRedIndex + 1;
-                NSInteger currentBlueIndex = currentGreenIndex + 1;
-                
-                NSColor* currentColour = [NSColor colorWithCalibratedRed:buffer[currentRedIndex] green:buffer[currentGreenIndex] blue:buffer[currentBlueIndex] alpha:1.0f];
-                
-                [self setColour:currentColour AtLocationX:x LocationY:y Time:t];
+                for (int q = 0; q < 4; q++)
+                {
+                    NSInteger currentRedIndex = 3 * (_width * _height * t + _width * y + x + q);
+                    NSInteger currentGreenIndex = currentRedIndex + 1;
+                    NSInteger currentBlueIndex = currentGreenIndex + 1;
+                    
+                    NSColor* currentColour = [NSColor colorWithCalibratedRed:buffer[currentRedIndex] green:buffer[currentGreenIndex] blue:buffer[currentBlueIndex] alpha:1.0f];
+                    
+                    [self setColour:currentColour AtLocationX:x LocationY:y Quadrant:q Time:t];
+                }
             }
         }
     }
@@ -83,20 +86,28 @@
         {
             for (int y = 0; y < 9; y++)
             {
-                if (x == 0 || x == 8 || y == 0 || y == 8) {
-                    [self setColour:colourArray[t] AtLocationX:x LocationY:y Time:t];
-                }
-                else if (x == 1 || x == 7 || y == 1 || y ==7) {
-                    [self setColour:colourArray[(t+1)%5] AtLocationX:x LocationY:y Time:t];
-                }
-                else if (x == 2 || x == 6 || y == 2 || y == 6) {
-                    [self setColour:colourArray[(t+2)%5] AtLocationX:x LocationY:y Time:t];
-                }
-                else if (x == 3 || x == 5 || y == 3 || y == 5) {
-                    [self setColour:colourArray[(t+3)%5] AtLocationX:x LocationY:y Time:t];
-                }
-                else {
-                    [self setColour:colourArray[(t+4)%5] AtLocationX:x LocationY:y Time:t];
+                for (NSInteger q = 0; q < 4; q++)
+                {
+                    if (x == 0 || x == 8 || y == 0 || y == 8)
+                    {
+                        [self setColour:colourArray[t] AtLocationX:x LocationY:y Quadrant:q Time:t];
+                    }
+                    else if (x == 1 || x == 7 || y == 1 || y ==7)
+                    {
+                        [self setColour:colourArray[(t+1)%5] AtLocationX:x LocationY:y Quadrant:q Time:t];
+                    }
+                    else if (x == 2 || x == 6 || y == 2 || y == 6)
+                    {
+                        [self setColour:colourArray[(t+2)%5] AtLocationX:x LocationY:y Quadrant:q Time:t];
+                    }
+                    else if (x == 3 || x == 5 || y == 3 || y == 5)
+                    {
+                        [self setColour:colourArray[(t+3)%5] AtLocationX:x LocationY:y Quadrant:q Time:t];
+                    }
+                    else
+                    {
+                        [self setColour:colourArray[(t+4)%5] AtLocationX:x LocationY:y Quadrant:q Time:t];
+                    }
                 }
             }
         }
@@ -111,7 +122,11 @@
         {
             for (NSInteger x = 0; x < _width; x++)
             {
-                [self setColour:[NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f] AtLocationX:x LocationY:y Time:t];
+                for (NSInteger q = 0; q < 4; q++)
+                {
+                    NSColor *white = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
+                    [self setColour:white AtLocationX:x LocationY:y Quadrant:q Time:t];
+                }
             }
         }
     }
@@ -119,13 +134,16 @@
 
 -(NSData*)convertPatternToData
 {
-    void* buffer = malloc(3 * sizeof(NSInteger) + _width * _height * _length * sizeof(CanvasPixel));
+    // 3 NSInteger prefix followed by a bunch of quadpixels
+    void* buffer = malloc(3 * sizeof(NSInteger) + 4 * _width * _height * _length * sizeof(CanvasPixel));
+    
     NSInteger prefix [3] = {_width, _height, _length};
     memcpy(buffer, prefix, 3 * sizeof(NSInteger));
-    memcpy(buffer + 3 * sizeof(NSInteger), pixelArray, _width * _height * _length * sizeof(CanvasPixel));
+    
+    memcpy(buffer + 3 * sizeof(NSInteger), pixelArray, 4 * _width * _height * _length * sizeof(CanvasPixel));
     
     NSData* patternData = [[NSData alloc] initWithBytes:buffer
-                                                 length:3 * sizeof(NSInteger) + _width * _height * _length * sizeof(CanvasPixel)];
+                                                 length:3 * sizeof(NSInteger) + 4 * _width * _height * _length * sizeof(CanvasPixel)];
     free(buffer);
     return patternData;
 }
@@ -136,7 +154,7 @@
     return [[NSFileManager defaultManager] createFileAtPath:arg_path contents:patternData attributes:nil];
 }
 
--(void)setColour:(NSColor *)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t
+-(void)setColour:(NSColor *)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t
 {
     if ((x >= _width) || (y >= _height) || (t >= _length))
     {
@@ -150,12 +168,12 @@
         
         // store new pixel
         CanvasPixel newPixel = { .r = red, .g = green, .b = blue };
-        NSInteger index = _width * _height * t + _width * y + x;
+        NSInteger index = _width * _height * t + _width * y + x + quadrant;
         pixelArray[index] = newPixel;
     }
 }
 
-- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t
+- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t
 {
     if ((x >= _width) || (y >= _height) || (t >= _length))
     {
@@ -164,7 +182,7 @@
     }
     else
     {
-        NSInteger index = _width * _height * t + _width * y + x;
+        NSInteger index = _width * _height * t + _width * y + x + quadrant;
         CanvasPixel pixel = pixelArray[index];
         return [NSColor colorWithCalibratedRed:pixel.r green:pixel.g blue:pixel.b alpha:1.0f];
     }

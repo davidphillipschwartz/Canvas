@@ -21,7 +21,7 @@
 @property(nonatomic, readwrite) CanvasPattern* currentPattern;
 
 - (void)setHorizontalCells:(NSInteger)horizontalCells VerticalCells:(NSInteger)verticalCells;
-- (void)setColour:(NSColor *)inputColour AtLocationX:(NSInteger)x LocationY:(NSInteger)y;
+- (void)setColour:(NSColor *)inputColour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant;
 - (void)drawFrame;
 
 @end

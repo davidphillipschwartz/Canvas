@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CanvasColourView.h"
 
 typedef struct
 {
@@ -24,10 +25,10 @@ typedef struct
 
 - (id)initWithWidth:(NSInteger)_width Height:(NSInteger)_height Length:(NSInteger)_length;
 - (id)initWithData:(NSData*)_data;
-- (void)setColour:(NSColor*)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t;
+- (void)setColour:(NSColor*)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t;
 - (void)initializeWithDefaultPattern;
 - (void)clearPatternToWhite;
-- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Time:(NSInteger)t;
+- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t;
 - (NSData*)convertPatternToData;
 - (BOOL)savePatternToFileAtPath:(NSString*)arg_path;
 

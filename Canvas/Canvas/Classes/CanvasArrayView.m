@@ -25,11 +25,11 @@
 }
 
 // canvasColourView delegate method
-- (void)updateColour:(NSColor *)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y
+- (void)updateColour:(NSColor *)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y atQuadrant:(CanvasColourViewQuadrant)arg_q
 {
     if (self.currentPattern != nil)
     {
-        [self.currentPattern setColour:arg_colour AtLocationX:arg_x LocationY:arg_y Time:self.currentTime];
+        [self.currentPattern setColour:arg_colour AtLocationX:arg_x LocationY:arg_y Quadrant:arg_q Time:self.currentTime];
     }
 }
 
@@ -53,7 +53,7 @@
     }
 }
 
-- (void)setColour:(NSColor *)inputColour AtLocationX:(NSInteger)x LocationY:(NSInteger)y
+- (void)setColour:(NSColor *)inputColour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant
 {
     if (x >= self.numberOfColumns || y >= self.numberOfRows)
     {
@@ -63,7 +63,7 @@
     {
         NSInteger index = y * self.numberOfColumns + x;
         CanvasColourView *cell = cellArray[index];
-        [cell setBackgroundColour:inputColour];
+        [cell setBackgroundColour:inputColour forQuadrant:quadrant];
         [self setNeedsDisplay:YES];
     }
 }
@@ -74,8 +74,11 @@
     {
         for (NSInteger y = 0; y < self.currentPattern.height; y++)
         {
-            NSColor *pixelColour = [self.currentPattern getColourAtLocationX:x LocationY:y Time:self.currentTime];
-            [self setColour:pixelColour AtLocationX:x LocationY:y];
+            for (NSInteger q = 0; q < 4; q++)
+            {
+                NSColor *pixelColour = [self.currentPattern getColourAtLocationX:x LocationY:y Quadrant:q Time:self.currentTime];
+                [self setColour:pixelColour AtLocationX:x LocationY:y Quadrant:q];
+            }
         }
     }
 }

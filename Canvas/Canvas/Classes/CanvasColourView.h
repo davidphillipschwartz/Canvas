@@ -8,9 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef NS_ENUM(NSInteger, CanvasColourViewQuadrant)
+{
+    CanvasColourViewQuadrantRight = 0,
+    CanvasColourViewQuadrantTop = 1,
+    CanvasColourViewQuadrantLeft = 2,
+    CanvasColourViewQuadrantBottom = 3
+};
+
 @protocol CanvasColourViewDelegate <NSObject>
 
-- (void) updateColour:(NSColor*)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y;
+- (void)updateColour:(NSColor*)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y atQuadrant:(CanvasColourViewQuadrant)arg_q;
 
 @end
 
@@ -22,7 +30,7 @@
     id<CanvasColourViewDelegate> delegate;
 }
 - (id)initWithFrame:(NSRect)frameRect locationX:(NSInteger)arg_x locationY:(NSInteger)arg_y;
-- (void)setBackgroundColour:(NSColor *)inputColour;
+- (void)setBackgroundColour:(NSColor *)inputColour forQuadrant:(CanvasColourViewQuadrant)quadrant;
 - (void)setDelegate:(id<CanvasColourViewDelegate>)arg_delegate;
 - (void)drawRect;
 
