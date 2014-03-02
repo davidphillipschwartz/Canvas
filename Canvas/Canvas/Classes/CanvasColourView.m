@@ -90,22 +90,22 @@
         NSRect l = leftPath.bounds;
         NSRect b = bottomPath.bounds;
         
-        if ([rightPath containsPoint:locationInColourView])
+        if ([rightPath containsPoint:locationInArrayView])
         {
             rightColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:rightColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantRight];
         }
-        else if ([topPath containsPoint:locationInColourView])
+        else if ([topPath containsPoint:locationInArrayView])
         {
             topColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:topColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantTop];
         }
-        else if ([leftPath containsPoint:locationInColourView])
+        else if ([leftPath containsPoint:locationInArrayView])
         {
             leftColour = [NSColor colorFromPasteboard:pboard];
-            [delegate updateColour:topColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantLeft];
+            [delegate updateColour:leftColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantLeft];
         }
-        else if ([bottomPath containsPoint:locationInColourView])
+        else if ([bottomPath containsPoint:locationInArrayView])
         {
             bottomColour = [NSColor colorFromPasteboard:pboard];
             [delegate updateColour:bottomColour atX:_x atY:_y atQuadrant:CanvasColourViewQuadrantBottom];
