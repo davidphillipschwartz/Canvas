@@ -32,7 +32,7 @@
         
         CGPoint rightPointArray[3] = {bottomRight, topRight, center};
         CGPoint topPointArray[3] = {topRight, center, topLeft};
-        CGPoint leftPointArray[3] = {topLeft, center, bottomRight};
+        CGPoint leftPointArray[3] = {topLeft, center, bottomLeft};
         CGPoint bottomPointArray[3] = {bottomLeft, center, bottomRight};
         
         rightPath = [[NSBezierPath alloc] init];
@@ -136,17 +136,6 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    // draw border
-    [[NSColor blackColor] set];
-    NSBezierPath *border = [NSBezierPath bezierPathWithRect:[self bounds]];
-    [border setLineWidth:1.0f];
-    [border stroke];
-    
-    [rightPath stroke];
-    [topPath stroke];
-    [leftPath stroke];
-    [bottomPath stroke];
-    
     // draw interior of triangles
     [rightColour set];
     [rightPath fill];
@@ -159,6 +148,16 @@
     
     [bottomColour set];
     [bottomPath fill];
+    
+    // draw border
+    [[NSColor blackColor] set];
+    NSBezierPath *border = [NSBezierPath bezierPathWithRect:[self bounds]];
+    [border stroke];
+    
+    [rightPath stroke];
+    [topPath stroke];
+    [bottomPath stroke];
+    [leftPath stroke];
 }
 
 - (void)drawRect
