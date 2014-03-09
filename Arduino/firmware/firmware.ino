@@ -2,7 +2,14 @@
 // david schwartz
 // 8 march 2014
 
+// NOTE: all code related to Serial1 must be commented out on the Uno boards
+
+#include <FastLED.h>
+#define NUM_LEDS 4
+#define DATA_PIN 6
+
 byte buffer;
+CRGB leds[NUM_LEDS];
 
 void setup()
 {
@@ -10,7 +17,9 @@ void setup()
   Serial.begin(31250);
   
   // USB - PC over pins 18 and 19
-  Serial1.begin(9600);
+  //Serial1.begin(9600);
+  
+  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
 }
 
 void loop()
@@ -21,9 +30,11 @@ void loop()
     // process MIDI
   }
   // check for data from PC
+  /*
   else if(Serial1.available())
   {
     // process data from PC
   }
+  */
   
 }
