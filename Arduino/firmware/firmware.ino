@@ -6,7 +6,7 @@
 
 #include <FastLED.h>
 #include <MIDI.h>
-#define NUM_LEDS 4
+#define NUM_LEDS 128
 #define DATA_PIN 6
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, Midi);
