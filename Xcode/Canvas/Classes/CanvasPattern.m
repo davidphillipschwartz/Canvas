@@ -52,7 +52,7 @@
                 for (int q = 0; q < 4; q++)
                 {
                     CanvasPixel currentPixel = buffer[4 * (_width * _height * t + _width * y + x) + q];
-                    NSColor* currentColour = [NSColor colorWithCalibratedRed:currentPixel.r green:currentPixel.g blue:currentPixel.b alpha:1.0f];
+                    NSColor* currentColour = [NSColor colorWithCalibratedRed:currentPixel.r / 255. green:currentPixel.g / 255. blue:currentPixel.b / 255. alpha:1.0f];
                     [self setColour:currentColour AtLocationX:x LocationY:y Quadrant:q Time:t];
                 }
             }
