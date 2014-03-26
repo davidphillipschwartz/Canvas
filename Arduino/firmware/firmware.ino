@@ -11,32 +11,64 @@
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, Midi);
 
-byte buffer;
 CRGB leds[NUM_LEDS];
-unsigned char index = 0;
-CRGB colours[4] = {CRGB::Red, CRGB::Blue, CRGB::Green, CRGB::Purple};
 
 void callbackNoteOn(byte channel, byte note, byte velocity)
 {
   if(velocity != 0)  // some implementations use Note On with Velocity = 0 instead of Note Off
   {
-    leds[0] = colours[index];
-    leds[1] = colours[(index+1)%4];
-    leds[2] = colours[(index+2)%4];
-    leds[3] = colours[(index+3)%4];
-  
-    FastLED.show();
-  
-    index++;
-    index %= 4;
+    // switch pattern
   }
 }
 
 void callbackClock(void)
 {
-  
+  // show frame
 }
 
+void parseSerialInput()
+{
+  byte width, height, length;
+  
+  // read the size bytes
+  while(true)
+  {
+    if(Serial.available() >= 3)
+    {
+      width = Serial.read();
+      height = Serial.read();
+      length = Serial.read();
+      
+      Serial.write(width);
+      Serial.write(height);
+      Serial.write(length);
+      
+      break;
+    }
+  }
+
+  // read the colours
+  byte red, green, blue;
+  int counter = 0;
+  
+  while(true)
+  {
+    // stop once we have read 3 colour bytes per LED
+    if(counter == NUM_LEDS)
+      break;
+    
+    if(Serial.available() >= 3)
+    {
+      red = Serial.read();
+      green = Serial.read();
+      blue = Serial.read();
+      
+      leds[counter].setRGB(red, green, blue);
+      counter++;
+    }
+  }
+}   
+      
 void setup()
 {
   // MIDI over pins 18 and 19
@@ -52,15 +84,15 @@ void setup()
 
 void loop()
 {
-  // check for MIDI
-  if(Midi.read())
-  {
-    // process MIDI
-  }
+  // check for MIDI & trigger callbacks
+  if(Midi.read());
+  
   // check for data from PC
   else if(Serial.available())
   {
     // process data from PC
+    parseSerialInput();
+    FastLED.show();
   }
   
 }
