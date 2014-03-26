@@ -16,8 +16,8 @@ const char *arduinoPort = "/dev/cu.usbmodemfa131";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [self.simulatorView setHorizontalCells:3 VerticalCells:3];
-    self.simulatorView.currentPattern = [[CanvasPattern alloc] initWithWidth:3 Height:3 Length:5];
+    [self.simulatorView setHorizontalCells:1 VerticalCells:1];
+    self.simulatorView.currentPattern = [[CanvasPattern alloc] initWithWidth:1 Height:1 Length:1];
     [self.simulatorView.currentPattern clearPatternToWhite];
     // note: frameSlider initialized in nib
     self.timer = nil;
@@ -122,8 +122,14 @@ const char *arduinoPort = "/dev/cu.usbmodemfa131";
 {
     // http://playground.arduino.cc/Interfacing/Cocoa
     
-    const int sizeOfData = 10;
-    uint8_t patternData[sizeOfData] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    NSData *patternData = [self.simulatorView.currentPattern convertPatternToData];
+    uint8_t *patternBytes = (uint8_t*) [patternData bytes];
+    const long sizeOfData = [patternData length];
+    
+    NSLog(@"bytes to send:");
+    for (int i = 0; i < sizeOfData; i++) {
+        NSLog(@"%d", patternBytes[i]);
+    }
     
     struct termios options;
     speed_t baudRate = B9600;
@@ -158,12 +164,13 @@ const char *arduinoPort = "/dev/cu.usbmodemfa131";
     
     // setting raw-mode allows the use of tcsetattr() and ioctl()
     cfmakeraw(&options);
+    tcsetattr(serialFileDescriptor, TCSANOW, &options);
     
     // specify baud rate
     ioctl(serialFileDescriptor, IOSSIOSPEED, &baudRate);
     
     // read serial input
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         uint8_t byte_buffer[100]; // buffer for holding incoming data
         long numBytes = 1; // number of bytes read during read
         int byteCounter = 0; // the total number of bytes read
@@ -177,7 +184,7 @@ const char *arduinoPort = "/dev/cu.usbmodemfa131";
                 byteCounter += numBytes;
             
             for (int i = 0; i < numBytes; i++) {
-                int data = byte_buffer[i];
+                uint8_t data = byte_buffer[i];
                 NSLog(@"%d", data);
             }
             
@@ -197,9 +204,9 @@ const char *arduinoPort = "/dev/cu.usbmodemfa131";
     usleep(5000000);
     
     // write data
-    write(serialFileDescriptor, &patternData, sizeOfData);
+    write(serialFileDescriptor, patternBytes, sizeOfData);
     
-    // block until arduino signals that process is finished
+    // block until arduino signals that the process is finished
     while (true)
     {
         if (completionFlag) break;

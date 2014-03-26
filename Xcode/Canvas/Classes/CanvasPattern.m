@@ -162,8 +162,12 @@
         double red, green, blue;
         [colour getRed:&red green:&green blue:&blue alpha:NULL];
         
+        uint8_t redByte = 255 * red;
+        uint8_t greenByte = 255 * green;
+        uint8_t blueByte = 255 * blue;
+        
         // store new pixel
-        CanvasPixel newPixel = { .r = red, .g = green, .b = blue };
+        CanvasPixel newPixel = { .r = redByte, .g = greenByte, .b = blueByte };
         NSInteger index = 4 * (_width * _height * t + _width * y + x) + quadrant;
         pixelArray[index] = newPixel;
     }
@@ -180,7 +184,7 @@
     {
         NSInteger index = 4 * (_width * _height * t + _width * y + x) + quadrant;
         CanvasPixel pixel = pixelArray[index];
-        return [NSColor colorWithCalibratedRed:pixel.r green:pixel.g blue:pixel.b alpha:1.0f];
+        return [NSColor colorWithCalibratedRed:pixel.r / 255. green:pixel.g / 255. blue:pixel.b /255. alpha:1.0f];
     }
 }
 
