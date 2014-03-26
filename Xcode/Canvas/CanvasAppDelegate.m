@@ -8,7 +8,7 @@
 
 #import "CanvasAppDelegate.h"
 
-const char *arduinoPort = "/dev/cu.usbmodemfd121";
+const char *arduinoPort = "/dev/cu.usbmodemfa131";
 
 @implementation CanvasAppDelegate
 
@@ -122,7 +122,8 @@ const char *arduinoPort = "/dev/cu.usbmodemfd121";
 {
     // http://playground.arduino.cc/Interfacing/Cocoa
     
-    uint8_t patternData = 46;
+    const int sizeOfData = 10;
+    uint8_t patternData[sizeOfData] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     
     struct termios options;
     speed_t baudRate = B9600;
@@ -165,28 +166,29 @@ const char *arduinoPort = "/dev/cu.usbmodemfd121";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         uint8_t byte_buffer[100]; // buffer for holding incoming data
         long numBytes = 1; // number of bytes read during read
+        int byteCounter = 0; // the total number of bytes read
         
         // this will loop until the serial port closes
         while(numBytes>0) {
             // read() blocks until data is read or the port is closed
             numBytes = read(serialFileDescriptor, byte_buffer, 100);
             
+            if (numBytes >=1)
+                byteCounter += numBytes;
+            
             for (int i = 0; i < numBytes; i++) {
                 int data = byte_buffer[i];
-                
-                // ignore control bytes
-                if (data != 10 && data != 13) {
-                    NSLog(@"%d", data);
-                }
-                
-                if (data == '~') {
-                    completionFlag = true;
-                    
-                    // make sure the serial port is closed
-                    if (serialFileDescriptor != -1) {
-                        close(serialFileDescriptor);
-                        serialFileDescriptor = -1;
-                    }
+                NSLog(@"%d", data);
+            }
+            
+            if (byteCounter >= sizeOfData)
+            {
+                completionFlag = true;
+            
+                // make sure the serial port is closed
+                if (serialFileDescriptor != -1) {
+                    close(serialFileDescriptor);
+                    serialFileDescriptor = -1;
                 }
             }
         }
@@ -195,7 +197,7 @@ const char *arduinoPort = "/dev/cu.usbmodemfd121";
     usleep(5000000);
     
     // write data
-    write(serialFileDescriptor, &patternData, 1);
+    write(serialFileDescriptor, &patternData, sizeOfData);
     
     // block until arduino signals that process is finished
     while (true)
