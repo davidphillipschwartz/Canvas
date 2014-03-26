@@ -18,7 +18,7 @@
     return self;
 }
 
-- (id)initWithWidth:(NSInteger)arg_width Height:(NSInteger)arg_height Length:(NSInteger)arg_length
+- (id)initWithWidth:(uint8_t)arg_width Height:(uint8_t)arg_height Length:(uint8_t)arg_length
 {
     self = [super init];
     if (self) {
@@ -34,12 +34,12 @@
 {
     NSAssert(_data != nil, @"DATA IS NIL AGHHHH");
     
-    NSInteger* prefixBuffer = malloc(3 * sizeof(NSInteger));
-    [_data getBytes:prefixBuffer length:3 * sizeof(NSInteger)];
+    uint8_t* prefixBuffer = malloc(3 * sizeof(uint8_t));
+    [_data getBytes:prefixBuffer length:3 * sizeof(uint8_t)];
     self = [self initWithWidth:prefixBuffer[0] Height:prefixBuffer[1] Length:prefixBuffer[2]];
     free(prefixBuffer);
     
-    NSRange pixelDataRange = {.location = 3 * sizeof(NSInteger), .length = 4 * _width * _height * _length * sizeof(CanvasPixel)};
+    NSRange pixelDataRange = {.location = 3 * sizeof(uint8_t), .length = 4 * _width * _height * _length * sizeof(CanvasPixel)};
     CanvasPixel* buffer = malloc(4 * _width * _height * _length * sizeof(CanvasPixel));
     [_data getBytes:buffer range:pixelDataRange];
     
@@ -112,13 +112,13 @@
 
 - (void)clearPatternToWhite
 {
-    for (NSInteger t = 0; t < _length; t++)
+    for (uint8_t t = 0; t < _length; t++)
     {
-        for (NSInteger y = 0; y < _height; y++)
+        for (uint8_t y = 0; y < _height; y++)
         {
-            for (NSInteger x = 0; x < _width; x++)
+            for (uint8_t x = 0; x < _width; x++)
             {
-                for (NSInteger q = 0; q < 4; q++)
+                for (uint8_t q = 0; q < 4; q++)
                 {
                     NSColor *white = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
                     [self setColour:white AtLocationX:x LocationY:y Quadrant:q Time:t];
@@ -130,16 +130,16 @@
 
 -(NSData*)convertPatternToData
 {
-    // 3 NSInteger prefix followed by a bunch of quadpixels
-    void* buffer = malloc(3 * sizeof(NSInteger) + 4 * _width * _height * _length * sizeof(CanvasPixel));
+    // 3 uint8_t prefix followed by a bunch of quadpixels
+    void* buffer = malloc(3 * sizeof(uint8_t) + 4 * _width * _height * _length * sizeof(CanvasPixel));
     
-    NSInteger prefix [3] = {_width, _height, _length};
-    memcpy(buffer, prefix, 3 * sizeof(NSInteger));
+    uint8_t prefix [3] = {_width, _height, _length};
+    memcpy(buffer, prefix, 3 * sizeof(uint8_t));
     
-    memcpy(buffer + 3 * sizeof(NSInteger), pixelArray, 4 * _width * _height * _length * sizeof(CanvasPixel));
+    memcpy(buffer + 3 * sizeof(uint8_t), pixelArray, 4 * _width * _height * _length * sizeof(CanvasPixel));
     
     NSData* patternData = [[NSData alloc] initWithBytes:buffer
-                                                 length:3 * sizeof(NSInteger) + 4 * _width * _height * _length * sizeof(CanvasPixel)];
+                                                 length:3 * sizeof(uint8_t) + 4 * _width * _height * _length * sizeof(CanvasPixel)];
     free(buffer);
     return patternData;
 }
@@ -150,7 +150,7 @@
     return [[NSFileManager defaultManager] createFileAtPath:arg_path contents:patternData attributes:nil];
 }
 
--(void)setColour:(NSColor *)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t
+-(void)setColour:(NSColor *)colour AtLocationX:(uint8_t)x LocationY:(uint8_t)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(uint8_t)t
 {
     if ((x >= _width) || (y >= _height) || (t >= _length))
     {
@@ -169,7 +169,7 @@
     }
 }
 
-- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t
+- (NSColor*)getColourAtLocationX:(uint8_t)x LocationY:(uint8_t)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(uint8_t)t
 {
     if ((x >= _width) || (y >= _height) || (t >= _length))
     {

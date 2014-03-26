@@ -25,7 +25,7 @@
 }
 
 // canvasColourView delegate method
-- (void)updateColour:(NSColor *)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y atQuadrant:(CanvasColourViewQuadrant)arg_q
+- (void)updateColour:(NSColor *)arg_colour atX:(uint8_t)arg_x atY:(uint8_t)arg_y atQuadrant:(CanvasColourViewQuadrant)arg_q
 {
     if (self.currentPattern != nil)
     {
@@ -70,11 +70,11 @@
 
 - (void)drawFrame
 {
-    for(NSInteger x = 0; x < self.currentPattern.width; x++)
+    for(uint8_t x = 0; x < self.currentPattern.width; x++)
     {
-        for (NSInteger y = 0; y < self.currentPattern.height; y++)
+        for (uint8_t y = 0; y < self.currentPattern.height; y++)
         {
-            for (NSInteger q = 0; q < 4; q++)
+            for (uint8_t q = 0; q < 4; q++)
             {
                 NSColor *pixelColour = [self.currentPattern getColourAtLocationX:x LocationY:y Quadrant:q Time:self.currentTime];
                 [self setColour:pixelColour AtLocationX:x LocationY:y Quadrant:q];

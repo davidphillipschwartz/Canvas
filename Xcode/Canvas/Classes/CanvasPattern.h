@@ -11,7 +11,7 @@
 
 typedef struct
 {
-    unsigned char r, g, b;
+    uint8_t r, g, b;
 } CanvasPixel;
 
 @interface CanvasPattern : NSObject
@@ -19,16 +19,16 @@ typedef struct
     CanvasPixel* pixelArray;
 }
 
-@property (nonatomic, readonly) NSInteger width;
-@property (nonatomic, readonly) NSInteger height;
-@property (nonatomic, readonly) NSInteger length;
+@property (nonatomic, readonly) uint8_t width;
+@property (nonatomic, readonly) uint8_t height;
+@property (nonatomic, readonly) uint8_t length;
 
-- (id)initWithWidth:(NSInteger)_width Height:(NSInteger)_height Length:(NSInteger)_length;
+- (id)initWithWidth:(uint8_t)_width Height:(uint8_t)_height Length:(uint8_t)_length;
 - (id)initWithData:(NSData*)_data;
-- (void)setColour:(NSColor*)colour AtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t;
+- (void)setColour:(NSColor*)colour AtLocationX:(uint8_t)x LocationY:(uint8_t)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(uint8_t)t;
 - (void)initializeWithDefaultPattern;
 - (void)clearPatternToWhite;
-- (NSColor*)getColourAtLocationX:(NSInteger)x LocationY:(NSInteger)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(NSInteger)t;
+- (NSColor*)getColourAtLocationX:(uint8_t)x LocationY:(uint8_t)y Quadrant:(CanvasColourViewQuadrant)quadrant Time:(uint8_t)t;
 - (NSData*)convertPatternToData;
 - (BOOL)savePatternToFileAtPath:(NSString*)arg_path;
 

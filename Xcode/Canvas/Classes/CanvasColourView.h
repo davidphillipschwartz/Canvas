@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, CanvasColourViewQuadrant)
 
 @protocol CanvasColourViewDelegate <NSObject>
 
-- (void)updateColour:(NSColor*)arg_colour atX:(NSInteger)arg_x atY:(NSInteger)arg_y atQuadrant:(CanvasColourViewQuadrant)arg_q;
+- (void)updateColour:(NSColor*)arg_colour atX:(uint8_t)arg_x atY:(uint8_t)arg_y atQuadrant:(CanvasColourViewQuadrant)arg_q;
 
 @end
 
@@ -26,10 +26,10 @@ typedef NS_ENUM(NSInteger, CanvasColourViewQuadrant)
 {
     NSColor *rightColour, *topColour, *leftColour, *bottomColour;
     NSBezierPath *rightPath, *topPath, *leftPath, *bottomPath;
-    NSInteger _x, _y;
+    uint8_t _x, _y;
     id<CanvasColourViewDelegate> delegate;
 }
-- (id)initWithFrame:(NSRect)frameRect locationX:(NSInteger)arg_x locationY:(NSInteger)arg_y;
+- (id)initWithFrame:(NSRect)frameRect locationX:(uint8_t)arg_x locationY:(uint8_t)arg_y;
 - (void)setBackgroundColour:(NSColor *)inputColour forQuadrant:(CanvasColourViewQuadrant)quadrant;
 - (void)setDelegate:(id<CanvasColourViewDelegate>)arg_delegate;
 - (void)drawRect;

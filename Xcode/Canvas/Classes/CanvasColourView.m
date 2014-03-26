@@ -16,7 +16,7 @@
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect locationX:(NSInteger)arg_x locationY:(NSInteger)arg_y
+- (id)initWithFrame:(NSRect)frameRect locationX:(uint8_t)arg_x locationY:(uint8_t)arg_y
 {
     self = [super initWithFrame:frameRect];
     if(self)
