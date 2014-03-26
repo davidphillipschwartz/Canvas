@@ -8,6 +8,8 @@
 
 #import "CanvasAppDelegate.h"
 
+const char *arduinoPort = "/dev/cu.usbmodemfd121";
+
 @implementation CanvasAppDelegate
 
 #pragma mark APPLICATION METHODS
@@ -114,6 +116,99 @@
             [self.simulatorView.currentPattern savePatternToFileAtPath:path];
         }
     }];
+}
+
+- (IBAction)uploadPatternAction:(id)sender
+{
+    // http://playground.arduino.cc/Interfacing/Cocoa
+    
+    uint8_t patternData = 46;
+    
+    struct termios options;
+    speed_t baudRate = B9600;
+    
+    bool __block completionFlag = false;
+    
+    // close serial port if open
+	if (serialFileDescriptor != -1) {
+		close(serialFileDescriptor);
+		serialFileDescriptor = -1;
+        
+        usleep(5000000);
+	}
+    
+    // open the serial like POSIX C
+    serialFileDescriptor = open(
+                                arduinoPort,
+                                O_RDWR |
+                                O_NOCTTY |
+                                O_NONBLOCK );
+    
+    NSLog(@"serialFileDescriptor: %d", serialFileDescriptor);
+    
+    // block non-root users from using this port
+    ioctl(serialFileDescriptor, TIOCEXCL);
+    
+    // clear the O_NONBLOCK flag, so that read() will block and wait for data.
+    fcntl(serialFileDescriptor, F_SETFL, 0);
+    
+    // grab the options for the serial port
+    tcgetattr(serialFileDescriptor, &options);
+    
+    // setting raw-mode allows the use of tcsetattr() and ioctl()
+    cfmakeraw(&options);
+    
+    // specify baud rate
+    ioctl(serialFileDescriptor, IOSSIOSPEED, &baudRate);
+    
+    // read serial input
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        uint8_t byte_buffer[100]; // buffer for holding incoming data
+        long numBytes = 1; // number of bytes read during read
+        
+        // this will loop until the serial port closes
+        while(numBytes>0) {
+            // read() blocks until data is read or the port is closed
+            numBytes = read(serialFileDescriptor, byte_buffer, 100);
+            
+            for (int i = 0; i < numBytes; i++) {
+                int data = byte_buffer[i];
+                
+                // ignore control bytes
+                if (data != 10 && data != 13) {
+                    NSLog(@"%d", data);
+                }
+                
+                if (data == '~') {
+                    completionFlag = true;
+                    
+                    // make sure the serial port is closed
+                    if (serialFileDescriptor != -1) {
+                        close(serialFileDescriptor);
+                        serialFileDescriptor = -1;
+                    }
+                }
+            }
+        }
+    });
+    
+    usleep(5000000);
+    
+    // write data
+    write(serialFileDescriptor, &patternData, 1);
+    
+    // block until arduino signals that process is finished
+    while (true)
+    {
+        if (completionFlag) break;
+        usleep(50);
+    }
+    
+    // make sure the serial port is closed
+	if (serialFileDescriptor != -1) {
+		close(serialFileDescriptor);
+		serialFileDescriptor = -1;
+	}
 }
 
 @end

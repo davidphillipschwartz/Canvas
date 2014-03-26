@@ -9,7 +9,7 @@
 #define NUM_LEDS 4
 #define DATA_PIN 6
 
-MIDI_CREATE_INSTANCE(HardwareSerial, Serial, Midi); // change to Serial1 on Mega
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, Midi);
 
 byte buffer;
 CRGB leds[NUM_LEDS];
@@ -18,7 +18,7 @@ CRGB colours[4] = {CRGB::Red, CRGB::Blue, CRGB::Green, CRGB::Purple};
 
 void callbackNoteOn(byte channel, byte note, byte velocity)
 {
-  if(velocity != 0)
+  if(velocity != 0)  // some implementations use Note On with Velocity = 0 instead of Note Off
   {
     leds[0] = colours[index];
     leds[1] = colours[(index+1)%4];
@@ -32,14 +32,20 @@ void callbackNoteOn(byte channel, byte note, byte velocity)
   }
 }
 
+void callbackClock(void)
+{
+  
+}
+
 void setup()
 {
   // MIDI over pins 18 and 19
   Midi.begin();
   Midi.setHandleNoteOn(callbackNoteOn);
+  Midi.setHandleClock(callbackClock);
   
   // USB - PC over pins 0 and 1
-  //Serial.begin(9600);
+  Serial.begin(9600);
   
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
 }
@@ -52,11 +58,9 @@ void loop()
     // process MIDI
   }
   // check for data from PC
-  /*
   else if(Serial.available())
   {
     // process data from PC
   }
-  */
   
 }

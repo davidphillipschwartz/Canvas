@@ -11,7 +11,7 @@
 
 typedef struct
 {
-    double r, g, b;
+    unsigned char r, g, b;
 } CanvasPixel;
 
 @interface CanvasPattern : NSObject

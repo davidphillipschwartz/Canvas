@@ -7,10 +7,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
+// for serial comms
+#include <IOKit/IOKitLib.h>
+#include <IOKit/serial/IOSerialKeys.h>
+#include <IOKit/IOBSD.h>
+#include <IOKit/serial/ioss.h>
+#include <sys/ioctl.h>
+
 #import "CanvasArrayView.h"
 #import "CanvasPattern.h"
 
 @interface CanvasAppDelegate : NSObject <NSApplicationDelegate>
+{
+    int serialFileDescriptor;
+}
 
 @property (weak) IBOutlet CanvasArrayView *simulatorView;
 @property (assign) IBOutlet NSWindow *window;
@@ -25,5 +36,6 @@
 - (IBAction)frameSliderAction:(id)sender;
 - (IBAction)openPatternAction:(id)sender;
 - (IBAction)savePatternAction:(id)sender;
+- (IBAction)uploadPatternAction:(id)sender;
 
 @end

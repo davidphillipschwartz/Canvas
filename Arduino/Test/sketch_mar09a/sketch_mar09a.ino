@@ -13,15 +13,18 @@ CRGB colours[4] = {CRGB::Red, CRGB::Blue, CRGB::Green, CRGB::Purple};
 
 void callbackNoteOn(byte channel, byte note, byte velocity)
 {
-  leds[0] = colours[index];
-  leds[1] = colours[(index+1)%4];
-  leds[2] = colours[(index+2)%4];
-  leds[3] = colours[(index+3)%4];
+  if(velocity != 0)
+  {
+    leds[0] = colours[index];
+    leds[1] = colours[(index+1)%4];
+    leds[2] = colours[(index+2)%4];
+    leds[3] = colours[(index+3)%4];
   
-  FastLED.show();
+    FastLED.show();
   
-  index++;
-  index %= 4;
+    index++;
+    index %= 4;
+  }
 }
 
 void setup()
