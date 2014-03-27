@@ -8,7 +8,7 @@
 
 #import "CanvasAppDelegate.h"
 
-const char *arduinoPort = "/dev/cu.usbmodemfa131";
+const char *arduinoPort = "/dev/cu.usbmodemfd121";
 
 @implementation CanvasAppDelegate
 
@@ -16,8 +16,8 @@ const char *arduinoPort = "/dev/cu.usbmodemfa131";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [self.simulatorView setHorizontalCells:1 VerticalCells:1];
-    self.simulatorView.currentPattern = [[CanvasPattern alloc] initWithWidth:1 Height:1 Length:1];
+    [self.simulatorView setHorizontalCells:8 VerticalCells:4];
+    self.simulatorView.currentPattern = [[CanvasPattern alloc] initWithWidth:8 Height:4 Length:1];
     [self.simulatorView.currentPattern clearPatternToWhite];
     // note: frameSlider initialized in nib
     self.timer = nil;
