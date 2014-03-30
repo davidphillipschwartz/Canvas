@@ -6,6 +6,7 @@
 
 #include <FastLED.h>
 #include <MIDI.h>
+#include <SD.h>
 #define NUM_LEDS 128
 #define DATA_PIN 6
 
@@ -63,6 +64,10 @@ void parseSerialInput()
       green = Serial.read();
       blue = Serial.read();
       
+      Serial.write(red);
+      Serial.write(green);
+      Serial.write(blue);
+      
       leds[counter].setRGB(red, green, blue);
       counter++;
     }
@@ -78,6 +83,28 @@ void setup()
   
   // USB - PC over pins 0 and 1
   Serial.begin(9600);
+  Serial.println("Starting test...");
+  
+  // SD
+  pinMode(53, OUTPUT);
+  if (!SD.begin(53))
+  {
+    Serial.println("failed to initialize SD card");
+    return;
+  }
+  Serial.println("initialized SD card");
+  
+  // test
+  File testFile = SD.open("test.txt", FILE_WRITE);
+  testFile.println("testing SD");
+  testFile.close();
+  
+  testFile = SD.open("test.txt", FILE_READ);
+  while(testFile.available())
+  {
+    Serial.write(testFile.read());
+  }
+  testFile.close();
   
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
 }
