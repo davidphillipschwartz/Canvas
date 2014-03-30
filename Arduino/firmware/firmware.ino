@@ -7,7 +7,7 @@
 #include <FastLED.h>
 #include <MIDI.h>
 #include <SD.h>
-#define NUM_LEDS 128
+#define NUM_LEDS 4
 #define DATA_PIN 6
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, Midi);
@@ -31,6 +31,10 @@ void parseSerialInput()
 {
   byte width, height, length;
   
+  // open file
+  SD.remove("test.txt");
+  File patternFile = SD.open("test.txt", FILE_WRITE);
+  
   // read the size bytes
   while(true)
   {
@@ -40,14 +44,14 @@ void parseSerialInput()
       height = Serial.read();
       length = Serial.read();
       
-      Serial.write(width);
-      Serial.write(height);
-      Serial.write(length);
+      patternFile.write(width);
+      patternFile.write(height);
+      patternFile.write(length);
       
       break;
     }
   }
-
+  
   // read the colours
   byte red, green, blue;
   int counter = 0;
@@ -64,14 +68,16 @@ void parseSerialInput()
       green = Serial.read();
       blue = Serial.read();
       
-      Serial.write(red);
-      Serial.write(green);
-      Serial.write(blue);
+      patternFile.write(red);
+      patternFile.write(green);
+      patternFile.write(blue);
       
       leds[counter].setRGB(red, green, blue);
       counter++;
     }
   }
+    
+  patternFile.close();
 }   
       
 void setup()
@@ -83,29 +89,17 @@ void setup()
   
   // USB - PC over pins 0 and 1
   Serial.begin(9600);
-  Serial.println("Starting test...");
   
-  // SD
+  // initialize SD
   pinMode(53, OUTPUT);
   if (!SD.begin(53))
   {
-    Serial.println("failed to initialize SD card");
+    //Serial.println("failed to initialize SD card");
     return;
   }
-  Serial.println("initialized SD card");
+  //Serial.println("initialized SD card");
   
-  // test
-  File testFile = SD.open("test.txt", FILE_WRITE);
-  testFile.println("testing SD");
-  testFile.close();
-  
-  testFile = SD.open("test.txt", FILE_READ);
-  while(testFile.available())
-  {
-    Serial.write(testFile.read());
-  }
-  testFile.close();
-  
+  // initialize FastLED
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
 }
 
@@ -119,7 +113,6 @@ void loop()
   {
     // process data from PC
     parseSerialInput();
-    FastLED.show();
   }
   
 }

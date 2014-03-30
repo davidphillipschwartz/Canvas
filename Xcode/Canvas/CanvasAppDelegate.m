@@ -8,7 +8,7 @@
 
 #import "CanvasAppDelegate.h"
 
-const char *arduinoPort = "/dev/cu.usbmodemfd121";
+const char *arduinoPort = "/dev/cu.usbmodemfa131";
 
 @implementation CanvasAppDelegate
 
